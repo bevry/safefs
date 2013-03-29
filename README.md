@@ -1,5 +1,5 @@
 # Safe FS [![Build Status](https://secure.travis-ci.org/bevry/safefs.png?branch=master)](http://travis-ci.org/bevry/safefs)
-Goodbye EMFILE errors! Open only as many files as the operating system supports
+Say goodbye to EMFILE errors! Open only as many files as the operating system supports
 
 
 ## Install
@@ -17,9 +17,69 @@ Goodbye EMFILE errors! Open only as many files as the operating system supports
 
 ## Usage
 
-``` javascript
+### Example
 
+``` javascript
+// Import
+var safefs = require('safefs');
+
+// Indicate we're wanting to open a file and reserve our space in the queue
+// If there is space in the pool, our callback will run right away
+// If there isn't space, our callback will fire as soon as there is
+safefs.openFile(function(){
+	// We just got some available space, lets do our stuff with the file
+	require('fs').writeFileSync('some-file', 'data')
+	// Once we're done, indicate it, so that other tasks can swim in the pool too
+	safefs.closeFile();
+});
 ```
+
+// If we're working with an asynchronous function, it'll look like this
+safefs.openFile(function(){
+	require('fs').writeFile('some-file', 'data', function(err){
+		safefs.closeFile();
+	});
+});
+// as we only want to close file once we are completely done with it
+
+// However, that's pretty annoying have to wrap all our calls in openFile and closeFile
+// so it's a good thing that safefs provides wrappers for all the asynchronous fs methods for us
+// allowing us to just do
+safefs.writeFile('some-file', 'data', function(err){
+	// all done
+});
+// which will open and close the spot in the pool for us automatically, yay!
+```
+
+
+### Methods
+
+Arguments denoted with `?` are optional.
+
+- Custom methods:
+	- `openFile(next)`
+	- `closeFile()`
+- Wrapped fs/path methods:
+	- `readFile(path, options?, next)`
+	- `writeFile(path, data, options?, next)`
+	- `appendFile(path, data, options?, next)`
+	- `mkdir(path, mode?, next)`
+	- `stat(path, next)`
+	- `readdir(path, next)`
+	- `unlink(path, next)`
+	- `rmdir(path, next)`
+	- `exists(path, next)`
+	- `existsSync(path)`
+
+
+
+### Notes
+
+- You should call `openFile` before and `afterFile` after ALL file system interaction
+- To make this possible, we maintain the following globals:
+	- `numberOfOpenFiles` - defaults to `0`
+	- `maxNumberOfOpenFiles` - defaults to `process.env.NODE_MAX_OPEN_FILES` if available, otherwise sets to `100`
+	- `waitingToOpenFileDelay` - defaults to `100`
 
 
 
