@@ -1,5 +1,8 @@
 ## History
 
+- v2.0.1 March 29, 2013
+	- Fixed readme code block
+
 - v2.0.0 March 29, 2013
 	- Split from bal-util
 

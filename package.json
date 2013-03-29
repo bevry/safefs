@@ -1,6 +1,6 @@
 {
 	"name": "safefs",
-	"version": "2.0.0",
+	"version": "2.0.1",
 	"description": "Say goodbye to EMFILE errors! Open only as many files as the operating system supports",
 	"homepage": "https://github.com/bevry/safefs",
 	"keywords": [

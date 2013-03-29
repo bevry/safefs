@@ -32,7 +32,6 @@ safefs.openFile(function(){
 	// Once we're done, indicate it, so that other tasks can swim in the pool too
 	safefs.closeFile();
 });
-```
 
 // If we're working with an asynchronous function, it'll look like this
 safefs.openFile(function(){
@@ -54,22 +53,20 @@ safefs.writeFile('some-file', 'data', function(err){
 
 ### Methods
 
-Arguments denoted with `?` are optional.
-
 - Custom methods:
 	- `openFile(next)`
 	- `closeFile()`
 - Wrapped fs/path methods:
-	- `readFile(path, options?, next)`
-	- `writeFile(path, data, options?, next)`
-	- `appendFile(path, data, options?, next)`
-	- `mkdir(path, mode?, next)`
-	- `stat(path, next)`
-	- `readdir(path, next)`
-	- `unlink(path, next)`
-	- `rmdir(path, next)`
-	- `exists(path, next)`
-	- `existsSync(path)`
+	- `readFile`
+	- `writeFile`
+	- `appendFile`
+	- `mkdir`
+	- `stat`
+	- `readdir`
+	- `unlink`
+	- `rmdir`
+	- `exists`
+	- `existsSync`
 
 
 
