@@ -1,6 +1,5 @@
-# Balupton's Utility Functions [![Build Status](https://secure.travis-ci.org/balupton/bal-util.png?branch=master)](http://travis-ci.org/balupton/bal-util)
-Common utility functions for Node.js used and maintained by Benjamin Lupton
-
+# Safe FS [![Build Status](https://secure.travis-ci.org/bevry/safefs.png?branch=master)](http://travis-ci.org/bevry/safefs)
+Goodbye EMFILE errors! Open only as many files as the operating system supports
 
 
 ## Install
@@ -8,37 +7,28 @@ Common utility functions for Node.js used and maintained by Benjamin Lupton
 ### Backend
 
 1. [Install Node.js](http://bevry.me/node/install)
-2. `npm install --save bal-util`
+2. `npm install --save safefs`
 
 ### Frontend
 
-1. [See Browserify](http://browserify.org/)
+1. [See Browserify](http://browserify.org)
 
 
 
 ## Usage
-Best off looking at source, it's well documented, and there are plenty of tests
 
+``` javascript
 
-
-## Future
-We're in the process of abstracting the pieces of bal-util out into their own modules. So far, we've done the following:
-
-- balUtilFlow.Group > [TaskGroup](https://github.com/bevry/taskgroup)
-- balUtilFlow.fireWithOptionalCallback > [ambi](https://github.com/bevry/ambi)
-- balUtilTypes > [typeChecker](https://github.com/bevry/typechecker)
-- balUtilFlow.safeCallback > [safeCallback](https://github.com/bevry/safecallback)
-- balUtilFlow.each > [eachr](https://github.com/bevry/eachr)
-- balUtilFlow.(extend|clone)* > [extendr](https://github.com/bevry/extendr)
-- balUtilFlow.(get|set)Deep > [getsetdeep](https://github.com/bevry/getsetdeep)
+```
 
 
 
 ## History
-You can discover the history inside the [History.md](https://github.com/balupton/bal-util/blob/master/History.md#files) file
+You can discover the history inside the [History.md](https://github.com/bevry/safefs/blob/master/History.md#files) file
 
 
 
 ## License
 Licensed under the incredibly [permissive](http://en.wikipedia.org/wiki/Permissive_free_software_licence) [MIT License](http://creativecommons.org/licenses/MIT/)
-<br/>Copyright © 2011+ [Benjamin Arthur Lupton](http://balupton.com)
+<br/>Copyright © 2013+ [Bevry Pty Ltd](http://bevry.me)
+<br/>Copyright © 2011-2012 [Benjamin Arthur Lupton](http://balupton.com)
