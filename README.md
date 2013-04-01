@@ -53,20 +53,25 @@ safefs.writeFile('some-file', 'data', function(err){
 
 ### Methods
 
+Arguments suffixed with `?` are optional.
+
 - Custom methods:
 	- `openFile(next)`
 	- `closeFile()`
+	- `getParentPathSync(path)`
+	- `ensurePath(path, options?, next)` - will attempt to ensure the path exists, options:
+		- `mode` - defaults to `null`
 - Wrapped fs/path methods:
-	- `readFile`
-	- `writeFile`
-	- `appendFile`
-	- `mkdir`
-	- `stat`
-	- `readdir`
-	- `unlink`
-	- `rmdir`
-	- `exists`
-	- `existsSync`
+	- `readFile(path, options?, next)`
+	- `writeFile(path, data, options?, next)` - will also attempt to ensure the path exists
+	- `appendFile(path, data, options?, next)` - will also attempt to ensure the path exists
+	- `mkdir(path, mode?, next)` - mode defaults to `0o777 & (~process.umask())`
+	- `stat(path, next)`
+	- `readdir(path, next)`
+	- `unlink(path, next)`
+	- `rmdir(path, next)`
+	- `exists(path, next)`
+	- `existsSync(path)`
 
 
 

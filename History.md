@@ -1,5 +1,8 @@
 ## History
 
+- v2.0.3 April 1, 2013
+	- Added missing `ensurePath` and `getParentPathSync`
+
 - v2.0.2 April 1, 2013
 	- Added missing `ensurePath` and `getParentPathSync`
 

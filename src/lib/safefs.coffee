@@ -63,7 +63,7 @@ safefs =
 			next = options
 			options = null
 		options ?= {}
-		options.mode ?= (0o777 & (~process.umask()))
+		options.mode ?= null
 
 		# Check
 		safefs.exists path, (exists) ->
@@ -71,7 +71,7 @@ safefs =
 			return next(null,true)  if exists
 
 			# Success
-			parentPath = balUtilPaths.getParentPathSync(path)
+			parentPath = safefs.getParentPathSync(path)
 			safefs.ensurePath parentPath, options, (err) ->
 				# Error
 				return next(err,false)  if err
@@ -160,6 +160,7 @@ safefs =
 		unless next?
 			next = mode
 			mode = null
+		mode ?= (0o777 & (~process.umask()))
 
 		# Action
 		safefs.openFile -> fsUtil.mkdir path, mode, (err) ->
