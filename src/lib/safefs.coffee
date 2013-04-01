@@ -43,6 +43,55 @@ safefs =
 		@
 
 
+
+	# =====================================
+	# Our own custom functions
+
+	# Get the parent path
+	getParentPathSync: (p) ->
+		parentPath = p
+			.replace(/[\/\\]$/, '') # remove trailing slashes
+			.replace(/[\/\\][^\/\\]+$/, '')  # remove last directory
+		return parentPath
+
+
+	# Ensure path exists
+	# next(err,exists)
+	ensurePath: (path,options,next) ->
+		# Prepare
+		unless next?
+			next = options
+			options = null
+		options ?= {}
+		options.mode ?= (0o777 & (~process.umask()))
+
+		# Check
+		safefs.exists path, (exists) ->
+			# Error
+			return next(null,true)  if exists
+
+			# Success
+			parentPath = balUtilPaths.getParentPathSync(path)
+			safefs.ensurePath parentPath, options, (err) ->
+				# Error
+				return next(err,false)  if err
+
+				# Success
+				safefs.mkdir path, options.mode, (err) ->
+					safefs.exists path, (exists) ->
+						# Error
+						if not exists
+							err = new Error("Failed to create the directory: #{path}")
+							return next(err,false)
+
+						# Success
+						next(null,false)
+
+		# Chain
+		@
+
+
+
 	# =====================================
 	# Safe Wrappers for Standard Methods
 
@@ -71,7 +120,7 @@ safefs =
 			options = null
 
 		# Ensure path
-		safefs.ensurePath pathUtil.dirname(path), (err) ->
+		safefs.ensurePath pathUtil.dirname(path), options, (err) ->
 			# Error
 			return next(err)  if err
 
@@ -92,7 +141,7 @@ safefs =
 			options = null
 
 		# Ensure path
-		safefs.ensurePath pathUtil.dirname(path), (err) ->
+		safefs.ensurePath pathUtil.dirname(path), options, (err) ->
 			# Error
 			return next(err)  if err
 
