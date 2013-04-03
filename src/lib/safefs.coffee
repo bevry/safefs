@@ -1,17 +1,16 @@
 # Import
 fsUtil = require('fs')
 pathUtil = require('path')
+{TaskGroup} = require('taskgroup')
 
-# Create a counter of all the open files we have
-# As the filesystem will throw a fatal error if we have too many open files
-global.numberOfOpenFiles ?= 0
-global.maxNumberOfOpenFiles ?= process.env.NODE_MAX_OPEN_FILES ? 100
-global.waitingToOpenFileDelay ?= 100
+# Create our global pool
+global.safefsPool ?= new TaskGroup().setConfig({
+	concurrency: process.env.NODE_MAX_OPEN_FILES ? 100
+	pauseOnError: false
+	pauseOnExit: false
+}).run()
 
-
-# =====================================
 # Define
-
 safefs =
 
 	# =====================================
@@ -22,26 +21,9 @@ safefs =
 
 	# Open a file
 	# Pass your callback to fire when it is safe to open the file
-	openFile: (next) ->
-		if global.numberOfOpenFiles < 0
-			throw new Error("safefs.openFile: the numberOfOpenFiles is [#{global.numberOfOpenFiles}] which should be impossible...")
-		if global.numberOfOpenFiles >= global.maxNumberOfOpenFiles
-			setTimeout(
-				-> safefs.openFile(next)
-				global.waitingToOpenFileDelay
-			)
-		else
-			++global.numberOfOpenFiles
-			next()
+	openFile: (fn) ->
+		global.safefsPool.addTask(fn)
 		@
-
-	# Close a file
-	# Call this once you are done with that file
-	closeFile: (next) ->
-		--global.numberOfOpenFiles
-		next?()
-		@
-
 
 
 	# =====================================
@@ -104,9 +86,10 @@ safefs =
 			options = null
 
 		# Read
-		safefs.openFile -> fsUtil.readFile path, options, (err,data) ->
-			safefs.closeFile()
-			return next(err,data)
+		safefs.openFile (closeFile) ->
+			fsUtil.readFile path, options, (err,data) ->
+				closeFile()
+				return next(err,data)
 
 		# Chain
 		@
@@ -125,9 +108,10 @@ safefs =
 			return next(err)  if err
 
 			# Write data
-			safefs.openFile -> fsUtil.writeFile path, data, options, (err) ->
-				safefs.closeFile()
-				return next(err)
+			safefs.openFile (closeFile) ->
+				fsUtil.writeFile path, data, options, (err) ->
+					closeFile()
+					return next(err)
 
 		# Chain
 		@
@@ -146,9 +130,10 @@ safefs =
 			return next(err)  if err
 
 			# Write data
-			safefs.openFile -> fsUtil.appendFile path, data, options, (err) ->
-				safefs.closeFile()
-				return next(err)
+			safefs.openFile (closeFile) ->
+				fsUtil.appendFile path, data, options, (err) ->
+					closeFile()
+					return next(err)
 
 		# Chain
 		@
@@ -163,9 +148,10 @@ safefs =
 		mode ?= (0o777 & (~process.umask()))
 
 		# Action
-		safefs.openFile -> fsUtil.mkdir path, mode, (err) ->
-			safefs.closeFile()
-			return next(err)
+		safefs.openFile (closeFile) ->
+			fsUtil.mkdir path, mode, (err) ->
+				safefs.closeFile()
+				return next(err)
 
 		# Chain
 		@
@@ -173,9 +159,10 @@ safefs =
 	# Stat
 	# next(err,stat)
 	stat: (path,next) ->
-		safefs.openFile -> fsUtil.stat path, (err,stat) ->
-			safefs.closeFile()
-			return next(err,stat)
+		safefs.openFile (closeFile) ->
+			fsUtil.stat path, (err,stat) ->
+				closeFile()
+				return next(err,stat)
 
 		# Chain
 		@
@@ -183,9 +170,9 @@ safefs =
 	# Readdir
 	# next(err,files)
 	readdir: (path,next) ->
-		safefs.openFile ->
+		safefs.openFile (closeFile) ->
 			fsUtil.readdir path, (err,files) ->
-				safefs.closeFile()
+				closeFile()
 				return next(err,files)
 
 		# Chain
@@ -195,9 +182,10 @@ safefs =
 	# next(err)
 	unlink: (path,next) ->
 		# Stat
-		safefs.openFile -> fsUtil.unlink path, (err) ->
-			safefs.closeFile()
-			return next(err)
+		safefs.openFile (closeFile) ->
+			fsUtil.unlink path, (err) ->
+				closeFile()
+				return next(err)
 
 		# Chain
 		@
@@ -206,9 +194,10 @@ safefs =
 	# next(err)
 	rmdir: (path,next) ->
 		# Stat
-		safefs.openFile -> fsUtil.rmdir path, (err) ->
-			safefs.closeFile()
-			return next(err)
+		safefs.openFile (closeFile) ->
+			fsUtil.rmdir path, (err) ->
+				closeFile()
+				return next(err)
 
 		# Chain
 		@
@@ -220,9 +209,10 @@ safefs =
 		exists = fsUtil.exists or pathUtil.exists
 
 		# Action
-		safefs.openFile -> exists path, (exists) ->
-			safefs.closeFile()
-			return next(exists)
+		safefs.openFile (closeFile) ->
+			exists path, (exists) ->
+				closeFile()
+				return next(exists)
 
 		# Chain
 		@
@@ -238,8 +228,6 @@ safefs =
 
 		# Return
 		result
-
-
 
 # Export
 module.exports = safefs

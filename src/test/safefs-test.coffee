@@ -7,40 +7,33 @@ TaskGroup = require('taskgroup')
 # Test
 joe.describe 'safefs', (describe,it) ->
 
-	it 'should open the max number of files, then queue, then wind down', (done) ->
-		# Prepare
-		tasks = new TaskGroup (err) ->
-			# Check everything closed down correctly
-			expect(err).to.not.exist
-			expect(global.numberOfOpenFiles).to.equal(0)
-
-			# Complete test
-			done()
+	it 'should work correctly', (done) ->
+		openFiles = 0
+		closedFiles = 0
+		maxOpenFiles = 100
+		totalFiles = maxOpenFiles*2
 
 		# Add all our open tasks
-		[1..global.maxNumberOfOpenFiles*2].forEach (i) ->  tasks.push (complete) ->
+		[0...totalFiles].forEach (i) ->
 			# Open
-			safefs.openFile ->
+			safefs.openFile (closeFile) ->
+				++openFiles
+
 				# Check for logical conditions
-				expect(global.numberOfOpenFiles).to.be.lte(global.maxNumberOfOpenFiles)
+				expect(openFiles, 'check 1').to.be.lte(maxOpenFiles)
 
 				# Delay would go here if we are over the limit
 				process.nextTick ->
 					# Check for logical conditions
-					expect(global.numberOfOpenFiles).to.be.lte(global.maxNumberOfOpenFiles)
+					expect(openFiles, 'check 2').to.be.lte(maxOpenFiles)
 
 					# Close the file
-					safefs.closeFile()
+					closeFile()
+					++closedFiles
+					--openFiles
 
-					# Complete the task
-					complete()
-
-			# Check for no delay
-			if i < global.maxNumberOfOpenFiles
-				expect(global.numberOfOpenFiles).to.equal(i)
+					if closedFiles is totalFiles
+						done()
 
 			# Check for logical conditions
-			expect(global.numberOfOpenFiles).to.be.lte(global.maxNumberOfOpenFiles)
-
-		# Run all the tasks together
-		tasks.run()
+			expect(openFiles, 'check 4').to.be.lte(maxOpenFiles)
