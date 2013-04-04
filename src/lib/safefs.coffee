@@ -3,27 +3,46 @@ fsUtil = require('fs')
 pathUtil = require('path')
 {TaskGroup} = require('taskgroup')
 
-# Create our global pool
-global.safefsPool ?= new TaskGroup().setConfig({
+
+# =====================================
+# Define Globals
+
+# Prepare
+global.safefsGlobal ?= {}
+
+# Define Global Pool
+# Create a pool with the concurrency of our max number of open files
+global.safefsGlobal.pool ?= new TaskGroup().setConfig({
 	concurrency: process.env.NODE_MAX_OPEN_FILES ? 100
 	pauseOnError: false
-	pauseOnExit: false
 }).run()
 
-# Define
+
+# =====================================
+# Define Module
+
 safefs =
 
 	# =====================================
 	# Open and Close Files
 
-	# Allows us to open files safely
-	# by tracking the amount of open files we have
-
 	# Open a file
 	# Pass your callback to fire when it is safe to open the file
 	openFile: (fn) ->
-		global.safefsPool.addTask(fn)
-		@
+		# Add the task to the pool and execute it right away
+		global.safefsGlobal.pool.addTask(fn)
+		
+		# Chain
+		safefs
+
+	# Close a file
+	# Only here for backwards compatibility, do not use this
+	closeFile: ->
+		# Log
+		console.log('safefs.closeFile has been deprecated, please use the safefs.openFile completion callback to close files')
+		
+		# Chain
+		safefs
 
 
 	# =====================================
@@ -70,7 +89,7 @@ safefs =
 						next(null,false)
 
 		# Chain
-		@
+		safefs
 
 
 
@@ -92,7 +111,7 @@ safefs =
 				return next(err,data)
 
 		# Chain
-		@
+		safefs
 
 	# Write File
 	# next(err)
@@ -114,7 +133,7 @@ safefs =
 					return next(err)
 
 		# Chain
-		@
+		safefs
 
 	# Append File
 	# next(err)
@@ -136,7 +155,7 @@ safefs =
 					return next(err)
 
 		# Chain
-		@
+		safefs
 
 	# Mkdir
 	# next(err)
@@ -150,11 +169,11 @@ safefs =
 		# Action
 		safefs.openFile (closeFile) ->
 			fsUtil.mkdir path, mode, (err) ->
-				safefs.closeFile()
+				closeFile()
 				return next(err)
 
 		# Chain
-		@
+		safefs
 
 	# Stat
 	# next(err,stat)
@@ -165,7 +184,7 @@ safefs =
 				return next(err,stat)
 
 		# Chain
-		@
+		safefs
 
 	# Readdir
 	# next(err,files)
@@ -176,7 +195,7 @@ safefs =
 				return next(err,files)
 
 		# Chain
-		@
+		safefs
 
 	# Unlink
 	# next(err)
@@ -188,7 +207,7 @@ safefs =
 				return next(err)
 
 		# Chain
-		@
+		safefs
 
 	# Rmdir
 	# next(err)
@@ -200,7 +219,7 @@ safefs =
 				return next(err)
 
 		# Chain
-		@
+		safefs
 
 	# Exists
 	# next(err)
@@ -215,7 +234,7 @@ safefs =
 				return next(exists)
 
 		# Chain
-		@
+		safefs
 
 	# Exits Sync
 	# next(err)

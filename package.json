@@ -1,7 +1,7 @@
 {
 	"name": "safefs",
-	"version": "2.0.3",
-	"description": "Say goodbye to EMFILE errors! Open only as many files as the operating system supports",
+	"version": "3.0.0",
+	"description": "Stop getting EMFILE errors! Open only as many files as the operating system supports.",
 	"homepage": "https://github.com/bevry/safefs",
 	"keywords": [
 		"fs", "path", "openFile", "closeFile", "emfile"
@@ -23,8 +23,10 @@
 	"engines" : {
 		"node": ">=0.4"
 	},
+	"dependencies": {
+		"taskgroup": "~3.0.0"
+	},
 	"devDependencies": {
-		"taskgroup": "~2.0.0",
 		"coffee-script": "~1.6.2",
 		"joe": "~1.1.2",
 		"chai": "~1.5.0"
