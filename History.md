@@ -1,5 +1,8 @@
 ## History
 
+- v3.0.1 April 5, 2013
+	- Updated dependencies
+
 - v3.0.0 April 5, 2013
 	- Rewrote to use [TaskGroup](https://npmjs.org/package/taskgroup) instead of the manual queue + setTimeout approach we were using before
 
