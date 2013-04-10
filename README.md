@@ -2,6 +2,7 @@
 
 [![Build Status](https://secure.travis-ci.org/bevry/safefs.png?branch=master)](http://travis-ci.org/bevry/safefs)
 [![NPM version](https://badge.fury.io/js/safefs.png)](https://npmjs.org/package/safefs)
+[![Flattr this project](https://raw.github.com/balupton/flattr-buttons/master/badge-89x18.gif)](http://flattr.com/thing/344188/balupton-on-Flattr)
 
 Stop getting EMFILE errors! Open only as many files as the operating system supports.
 
