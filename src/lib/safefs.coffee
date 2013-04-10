@@ -175,6 +175,17 @@ safefs =
 		# Chain
 		safefs
 
+	# Lstat
+	# next(err,stat)
+	lstat: (path,next) ->
+		safefs.openFile (closeFile) ->
+			fsUtil.lstat path, (err,stat) ->
+				closeFile()
+				return next(err,stat)
+
+		# Chain
+		safefs
+
 	# Stat
 	# next(err,stat)
 	stat: (path,next) ->
