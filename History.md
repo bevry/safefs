@@ -1,5 +1,8 @@
 ## History
 
+- v3.0.2 August 29, 2013
+	- Updated dependencies
+
 - v3.0.1 April 5, 2013
 	- Updated dependencies
 
