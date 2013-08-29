@@ -31,7 +31,7 @@ safefs =
 	openFile: (fn) ->
 		# Add the task to the pool and execute it right away
 		global.safefsGlobal.pool.addTask(fn)
-		
+
 		# Chain
 		safefs
 
@@ -40,7 +40,7 @@ safefs =
 	closeFile: ->
 		# Log
 		console.log('safefs.closeFile has been deprecated, please use the safefs.openFile completion callback to close files')
-		
+
 		# Chain
 		safefs
 
@@ -181,7 +181,7 @@ safefs =
 		safefs.openFile (closeFile) ->
 			fsUtil.lstat path, (err,stat) ->
 				closeFile()
-				return next(err,stat)
+				return next(err, stat)
 
 		# Chain
 		safefs
@@ -192,7 +192,7 @@ safefs =
 		safefs.openFile (closeFile) ->
 			fsUtil.stat path, (err,stat) ->
 				closeFile()
-				return next(err,stat)
+				return next(err, stat)
 
 		# Chain
 		safefs
@@ -203,7 +203,7 @@ safefs =
 		safefs.openFile (closeFile) ->
 			fsUtil.readdir path, (err,files) ->
 				closeFile()
-				return next(err,files)
+				return next(err, files)
 
 		# Chain
 		safefs
