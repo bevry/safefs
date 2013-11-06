@@ -1,5 +1,9 @@
 ## History
 
+- v3.0.4 November 6, 2013
+	- Repackaged
+	- Updated dependencies
+
 - v3.0.3 August 29, 2013
 	- Added `lstat` functions
 		 - Thanks to [James Gill](https://github.com/jagill) for [pull request #1](https://github.com/bevry/safefs/pull/1)
