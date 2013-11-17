@@ -1,5 +1,5 @@
 # Import
-fsUtil = require('fs')
+fsUtil = require('graceful-fs')
 pathUtil = require('path')
 {TaskGroup} = require('taskgroup')
 
