@@ -1,4 +1,11 @@
-## History
+# History
+
+- v3.1.0 December 9, 2013
+	- We no longer use our internal queue and now just rely on the graceful-fs queue
+	- We now alias all the other standard file system methods onto our own object
+
+- v3.0.6 November 25, 2013
+	- Only unlink if the file exists
 
 - v3.0.5 November 17, 2013
 	- Use [graceful-fs](https://github.com/isaacs/node-graceful-fs) under the hood, along with our limiting abilities to help avoid even more problems

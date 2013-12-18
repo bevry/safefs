@@ -1,21 +1,6 @@
 # Import
 fsUtil = require('graceful-fs')
 pathUtil = require('path')
-{TaskGroup} = require('taskgroup')
-
-
-# =====================================
-# Define Globals
-
-# Prepare
-global.safefsGlobal ?= {}
-
-# Define Global Pool
-# Create a pool with the concurrency of our max number of open files
-global.safefsGlobal.pool ?= new TaskGroup().setConfig({
-	concurrency: process.env.NODE_MAX_OPEN_FILES ? 100
-	pauseOnError: false
-}).run()
 
 
 # =====================================
@@ -27,19 +12,19 @@ safefs =
 	# Open and Close Files
 
 	# Open a file
-	# Pass your callback to fire when it is safe to open the file
+	# Only here for backwards compatibility, do not use this
 	openFile: (fn) ->
-		# Add the task to the pool and execute it right away
-		global.safefsGlobal.pool.addTask(fn)
+		console.log('safefs.openFile has been deprecated, we now do the opening and closing automatically through the graceful-fs module')
 
 		# Chain
+		fn()
 		safefs
 
 	# Close a file
 	# Only here for backwards compatibility, do not use this
 	closeFile: ->
 		# Log
-		console.log('safefs.closeFile has been deprecated, please use the safefs.openFile completion callback to close files')
+		console.log('safefs.closeFile has been deprecated, we now do the opening and closing automatically through the graceful-fs module')
 
 		# Chain
 		safefs
@@ -69,13 +54,13 @@ safefs =
 		# Check
 		safefs.exists path, (exists) ->
 			# Error
-			return next(null,true)  if exists
+			return next(null, true)  if exists
 
 			# Success
 			parentPath = safefs.getParentPathSync(path)
 			safefs.ensurePath parentPath, options, (err) ->
 				# Error
-				return next(err,false)  if err
+				return next(err, false)  if err
 
 				# Success
 				safefs.mkdir path, options.mode, (err) ->
@@ -83,35 +68,17 @@ safefs =
 						# Error
 						if not exists
 							err = new Error("Failed to create the directory: #{path}")
-							return next(err,false)
+							return next(err, false)
 
 						# Success
-						next(null,false)
+						next(null, false)
 
 		# Chain
 		safefs
-
 
 
 	# =====================================
 	# Safe Wrappers for Standard Methods
-
-	# Read File
-	# next(err)
-	readFile: (path,options,next) ->
-		# Prepare
-		unless next?
-			next = options
-			options = null
-
-		# Read
-		safefs.openFile (closeFile) ->
-			fsUtil.readFile path, options, (err,data) ->
-				closeFile()
-				return next(err,data)
-
-		# Chain
-		safefs
 
 	# Write File
 	# next(err)
@@ -127,10 +94,7 @@ safefs =
 			return next(err)  if err
 
 			# Write data
-			safefs.openFile (closeFile) ->
-				fsUtil.writeFile path, data, options, (err) ->
-					closeFile()
-					return next(err)
+			fsUtil.writeFile(path, data, options, next)
 
 		# Chain
 		safefs
@@ -149,10 +113,7 @@ safefs =
 			return next(err)  if err
 
 			# Write data
-			safefs.openFile (closeFile) ->
-				fsUtil.appendFile path, data, options, (err) ->
-					closeFile()
-					return next(err)
+			fsUtil.appendFile(path, data, options, next)
 
 		# Chain
 		safefs
@@ -167,43 +128,7 @@ safefs =
 		mode ?= (0o777 & (~process.umask()))
 
 		# Action
-		safefs.openFile (closeFile) ->
-			fsUtil.mkdir path, mode, (err) ->
-				closeFile()
-				return next(err)
-
-		# Chain
-		safefs
-
-	# Lstat
-	# next(err,stat)
-	lstat: (path,next) ->
-		safefs.openFile (closeFile) ->
-			fsUtil.lstat path, (err,stat) ->
-				closeFile()
-				return next(err, stat)
-
-		# Chain
-		safefs
-
-	# Stat
-	# next(err,stat)
-	stat: (path,next) ->
-		safefs.openFile (closeFile) ->
-			fsUtil.stat path, (err,stat) ->
-				closeFile()
-				return next(err, stat)
-
-		# Chain
-		safefs
-
-	# Readdir
-	# next(err,files)
-	readdir: (path,next) ->
-		safefs.openFile (closeFile) ->
-			fsUtil.readdir path, (err,files) ->
-				closeFile()
-				return next(err, files)
+		fsUtil.mkdir(path, mode, next)
 
 		# Chain
 		safefs
@@ -212,22 +137,9 @@ safefs =
 	# next(err)
 	unlink: (path,next) ->
 		# Stat
-		safefs.openFile (closeFile) ->
-			fsUtil.unlink path, (err) ->
-				closeFile()
-				return next(err)
-
-		# Chain
-		safefs
-
-	# Rmdir
-	# next(err)
-	rmdir: (path,next) ->
-		# Stat
-		safefs.openFile (closeFile) ->
-			fsUtil.rmdir path, (err) ->
-				closeFile()
-				return next(err)
+		safefs.exists path, (exists) ->
+			return next()  if exists is false
+			fsUtil.unlink(path, next)
 
 		# Chain
 		safefs
@@ -235,14 +147,8 @@ safefs =
 	# Exists
 	# next(err)
 	exists: (path,next) ->
-		# Exists function
-		exists = fsUtil.exists or pathUtil.exists
-
 		# Action
-		safefs.openFile (closeFile) ->
-			exists path, (exists) ->
-				closeFile()
-				return next(exists)
+		(fsUtil.exists or pathUtil.exists)(path, next)
 
 		# Chain
 		safefs
@@ -250,14 +156,12 @@ safefs =
 	# Exits Sync
 	# next(err)
 	existsSync: (path) ->
-		# Exists function
-		existsSync = fsUtil.existsSync or pathUtil.existsSync
+		return (fsUtil.existsSync or pathUtil.existsSync)(path)
 
-		# Action
-		result = existsSync(path)
 
-		# Return
-		result
+# Add any missing methods
+for own key,value of fsUtil
+	safefs[key] ?= value.bind(fsUtil)
 
 # Export
 module.exports = safefs
