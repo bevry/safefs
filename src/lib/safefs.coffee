@@ -161,7 +161,7 @@ safefs =
 
 # Add any missing methods
 for own key,value of fsUtil
-	safefs[key] ?= value.bind(fsUtil)
+	safefs[key] ?= value.bind(fsUtil) if typeof value is 'function'
 
 # Export
 module.exports = safefs
