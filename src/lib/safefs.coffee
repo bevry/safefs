@@ -161,7 +161,11 @@ safefs =
 
 # Add any missing methods
 for own key,value of fsUtil
-	safefs[key] ?= value.bind(fsUtil) if typeof value is 'function'
+	# we do the `value?.bind` check, as we may interate across trivial types
+	# we do the `Function::bind` check, as underscore is a function that has it's own bind
+	# we do the `?=` as we don't want to over-write our own enhancements
+	if value?.bind is Function::bind
+		safefs[key] ?= value.bind(fsUtil)
 
 # Export
 module.exports = safefs

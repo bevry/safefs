@@ -1,5 +1,9 @@
 # History
 
+- v3.1.1 February 5, 2014
+	- Safefs no longer fails to extend the safefs object with fs utilities under certain environments
+		- Thanks to [Merrick Christensen](https://github.com/iammerrick) and [Kyle Robinson Young](https://github.com/shama) for [issue #3](https://github.com/bevry/safefs/issues/3)
+
 - v3.1.0 December 9, 2013
 	- We no longer use our internal queue and now just rely on the graceful-fs queue
 	- We now alias all the other standard file system methods onto our own object

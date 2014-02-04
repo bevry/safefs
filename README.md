@@ -10,9 +10,12 @@
 
 [![Build Status](http://img.shields.io/travis-ci/bevry/safefs.png?branch=master)](http://travis-ci.org/bevry/safefs "Check this project's build status on TravisCI")
 [![NPM version](http://badge.fury.io/js/safefs.png)](https://npmjs.org/package/safefs "View this project on NPM")
+[![Dependency Status](https://david-dm.org/bevry/safefs.png?theme=shields.io)](https://david-dm.org/bevry/safefs)
+[![Development Dependency Status](https://david-dm.org/bevry/safefs/dev-status.png?theme=shields.io)](https://david-dm.org/bevry/safefs#info=devDependencies)<br/>
 [![Gittip donate button](http://img.shields.io/gittip/bevry.png)](https://www.gittip.com/bevry/ "Donate weekly to this project using Gittip")
 [![Flattr donate button](http://img.shields.io/flattr/donate.png?color=yellow)](http://flattr.com/thing/344188/balupton-on-Flattr "Donate monthly to this project using Flattr")
 [![PayPayl donate button](http://img.shields.io/paypal/donate.png?color=yellow)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=QB8GQPZAH84N6 "Donate once-off to this project using Paypal")
+[![BitCoin donate button](http://img.shields.io/bitcoin/donate.png?color=yellow)](https://coinbase.com/checkouts/9ef59f5479eec1d97d63382c9ebcb93a "Donate once-off to this project using BitCoin")
 
 <!-- /BADGES -->
 
@@ -91,6 +94,7 @@ No sponsors yet! Will you be the first?
 [![Gittip donate button](http://img.shields.io/gittip/bevry.png)](https://www.gittip.com/bevry/ "Donate weekly to this project using Gittip")
 [![Flattr donate button](http://img.shields.io/flattr/donate.png?color=yellow)](http://flattr.com/thing/344188/balupton-on-Flattr "Donate monthly to this project using Flattr")
 [![PayPayl donate button](http://img.shields.io/paypal/donate.png?color=yellow)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=QB8GQPZAH84N6 "Donate once-off to this project using Paypal")
+[![BitCoin donate button](http://img.shields.io/bitcoin/donate.png?color=yellow)](https://coinbase.com/checkouts/9ef59f5479eec1d97d63382c9ebcb93a "Donate once-off to this project using BitCoin")
 
 ### Contributors
 
@@ -99,6 +103,7 @@ These amazing people have contributed code to this project:
 - [Benjamin Lupton](https://github.com/balupton) <b@lupton.cc> — [view contributions](https://github.com/bevry/safefs/commits?author=balupton)
 - [jagill](https://github.com/jagill) — [view contributions](https://github.com/bevry/safefs/commits?author=jagill)
 - [sfrdmn](https://github.com/sfrdmn) — [view contributions](https://github.com/bevry/safefs/commits?author=sfrdmn)
+- [shama](https://github.com/shama) — [view contributions](https://github.com/bevry/safefs/commits?author=shama)
 
 [Become a contributor!](https://github.com/bevry/safefs/blob/master/CONTRIBUTING.md#files)
 
