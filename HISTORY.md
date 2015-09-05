@@ -1,5 +1,8 @@
 # History
 
+## v3.2.2 September 5, 2015
+- Use any version of `graceful-fs` to fix possible compat issues with node <0.10 support
+
 ## v3.2.1 September 5, 2015
 - Fixed node <0.10 support (regression since v3.2.0)
 	- Unfortunately our dev dependencies don't support this early, so no travis ci tests, manual tests pass

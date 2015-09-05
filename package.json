@@ -1,7 +1,7 @@
 {
   "title": "Safe FS",
   "name": "safefs",
-  "version": "3.2.1",
+  "version": "3.2.2",
   "description": "Stop getting EMFILE errors! Open only as many files as the operating system supports.",
   "homepage": "https://github.com/bevry/safefs",
   "license": {
@@ -44,10 +44,10 @@
     "url": "http://github.com/bevry/safefs.git"
   },
   "engines": {
-    "node": ">=0.10"
+    "node": ">=0.4"
   },
   "dependencies": {
-    "graceful-fs": "^4.1.2"
+    "graceful-fs": "*"
   },
   "devDependencies": {
     "assert-helpers": "^1.0.2",
