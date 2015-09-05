@@ -1,5 +1,9 @@
 # History
 
+## v3.2.1 September 5, 2015
+- Fixed node <0.10 support (regression since v3.2.0)
+	- Unfortunately our dev dependencies don't support this early, so no travis ci tests, manual tests pass
+
 ## v3.2.0 September 5, 2015
 - Moved from CoffeeScript to ES6+
 - Removed `cyclic.js` as it should no longer be needed
