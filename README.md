@@ -43,7 +43,7 @@ Stop getting EMFILE errors! Open only as many files as the operating system supp
 ## Usage
 
 ``` javascript
-var safefs = require('safefs');
+var safefs = require('safefs')
 ```
 
 SafeFS uses [graceful-fs](https://npmjs.org/package/graceful-fs) to wrap all of the standard [file system](http://nodejs.org/docs/latest/api/all.html#all_file_system) methods to avoid EMFILE errors among other problems.
@@ -59,7 +59,7 @@ Ontop of graceful-fs, SafeFS also adds additional wrapping on the following meth
 
 SafeFS also define these additional methods:
 
-- `ensurePath(path, options, next)` - ensure the full path exists, equivalant to unix's `mdir -p path`
+- `ensurePath(path, options, next)` - ensure the full path exists, equivalent to unix's `mdir -p path`
 
 
 <!-- HISTORY/ -->
@@ -127,5 +127,3 @@ and licensed under:
 - The incredibly [permissive](http://en.wikipedia.org/wiki/Permissive_free_software_licence) [MIT License](http://opensource.org/licenses/mit-license.php)
 
 <!-- /LICENSE -->
-
-
