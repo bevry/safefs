@@ -48,18 +48,17 @@ var safefs = require('safefs')
 
 SafeFS uses [graceful-fs](https://npmjs.org/package/graceful-fs) to wrap all of the standard [file system](http://nodejs.org/docs/latest/api/all.html#all_file_system) methods to avoid EMFILE errors among other problems.
 
-Ontop of graceful-fs, SafeFS also adds additional wrapping on the following methods:
+On-top of graceful-fs, SafeFS also adds additional wrapping on the following methods:
 
 - `writeFile(path, data, options?, next)` - ensure the full path exists before writing to it
 - `appendFile(path, data, options?, next)` -  ensure the full path exists before writing to it
 - `mkdir(path, mode?, next)` - mode defaults to `0o777 & (~process.umask())`
 - `unlink(path, next)` - checks if the file exists before removing it
-- `exists(path, next)` - node <v0.6 and >=v0.6 compatibility
-- `existsSync(path)` - node <v0.6 and >=v0.6 compatibility
 
 SafeFS also define these additional methods:
 
 - `ensurePath(path, options, next)` - ensure the full path exists, equivalent to unix's `mdir -p path`
+- `getParentPathSync(path)` - returns the parent directory of the path
 
 
 <!-- HISTORY/ -->

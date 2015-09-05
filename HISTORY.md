@@ -1,5 +1,8 @@
 # History
 
+## v4.0.0 September 5, 2015
+- Dropped node <0.12 support
+
 ## v3.2.2 September 5, 2015
 - Use any version of `graceful-fs` to fix possible compat issues with node <0.10 support
 

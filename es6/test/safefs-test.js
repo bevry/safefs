@@ -28,6 +28,7 @@ joe.describe('safefs', function (describe, it) {
 		rimraf(localDir, complete)
 	})
 
+	// test graceful-fs alias
 	it('exists', function (complete) {
 		safefs.exists(__dirname, function (exists) {
 			equal(exists, true, 'this directory should exist')
@@ -38,6 +39,7 @@ joe.describe('safefs', function (describe, it) {
 		})
 	})
 
+	// test graceful-fs alias
 	it('existsSync', function () {
 		equal(safefs.existsSync(__dirname), true, 'this directory should exist')
 		equal(safefs.existsSync(localDir), false, 'this directory should not exist')

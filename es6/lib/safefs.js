@@ -143,23 +143,6 @@ const safefs = {
 
 		// Chain
 		return safefs
-	},
-
-	// Exists
-	// next(err)
-	exists: function (path, next) {
-		// Action
-		(fsUtil.exists || pathUtil.exists)(path, next)
-
-		// Chain
-		return safefs
-	},
-
-	// Exits Sync
-	// next(err)
-	existsSync: function (path) {
-		/* eslint no-sync: 0 */
-		return (fsUtil.existsSync || pathUtil.existsSync)(path)
 	}
 }
 
