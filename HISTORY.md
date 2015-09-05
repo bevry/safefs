@@ -1,5 +1,10 @@
 # History
 
+## v3.2.0 September 5, 2015
+- Moved from CoffeeScript to ES6+
+- Removed `cyclic.js` as it should no longer be needed
+- Added tests... finally...
+
 ## v3.1.3 March 18, 2015
 - Updated dependencies
 
