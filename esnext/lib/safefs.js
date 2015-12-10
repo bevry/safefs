@@ -1,3 +1,6 @@
+/* eslint no-sync:0 */
+'use strict'
+
 // Import
 const fsUtil = require('graceful-fs')
 const pathUtil = require('path')
@@ -12,7 +15,7 @@ const safefs = {
 	// Our own custom functions
 
 	// Get the parent path
-	getParentPathSync: function (path) {
+	getParentPathSync (path) {
 		return path
 			// remove trailing slashes
 			.replace(/[\/\\]$/, '')
@@ -23,7 +26,7 @@ const safefs = {
 
 	// Ensure path exists
 	// next(err, existed)
-	ensurePath: function (path, opts, next) {
+	ensurePath (path, opts, next) {
 		// Prepare
 		if ( next == null ) {
 			next = opts
@@ -70,7 +73,7 @@ const safefs = {
 
 	// Write File
 	// next(err)
-	writeFile: function (path, data, opts, next) {
+	writeFile (path, data, opts, next) {
 		// Prepare
 		if ( next == null ) {
 			next = opts
@@ -92,7 +95,7 @@ const safefs = {
 
 	// Append File
 	// next(err)
-	appendFile: function (path, data, opts, next) {
+	appendFile (path, data, opts, next) {
 		// Prepare
 		if ( next == null ) {
 			next = opts
@@ -114,13 +117,14 @@ const safefs = {
 
 	// Mkdir
 	// next(err)
-	mkdir: function (path, mode, next) {
+	mkdir (path, mode, next) {
 		// Prepare
 		if ( next == null ) {
 			next = mode
 			mode = null
 		}
 		if ( mode == null ) {
+			/* eslint no-bitwise:0, no-magic-numbers:0 */
 			mode = 0o777 & ~process.umask()
 		}
 
@@ -134,7 +138,7 @@ const safefs = {
 	// Unlink
 	// don't error if the path doesn't already exist
 	// next(err)
-	unlink: function (path, next) {
+	unlink (path, next) {
 		// Stat
 		safefs.exists(path, function (exists) {
 			if ( exists === false )  return next()
@@ -158,4 +162,4 @@ Object.keys(fsUtil).forEach(function (key) {
 })
 
 // Export
-export default safefs
+module.exports = safefs
