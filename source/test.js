@@ -1,11 +1,10 @@
 /* eslint no-sync:0 */
-'use strict'
 
 // Import
 const {equal, errorEqual} = require('assert-helpers')
 const joe = require('joe')
 const rimraf = require('rimraf')
-const safefs = require('../..')
+const safefs = require('../')
 
 // Prepare
 const localDir = process.cwd() + '/tmp'

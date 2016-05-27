@@ -1,5 +1,4 @@
 /* eslint no-sync:0 */
-'use strict'
 
 // Import
 const fsUtil = require('graceful-fs')
