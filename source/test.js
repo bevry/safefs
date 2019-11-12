@@ -2,7 +2,7 @@
 'use strict'
 
 // Import
-const { equal, errorEqual } = require('assert-helpers')
+const { equal, nullish } = require('assert-helpers')
 const { suite } = require('kava')
 const rimraf = require('rimraf')
 const safefs = require('./')
@@ -54,9 +54,8 @@ suite('safefs', function(suite, test) {
 
 	test('unlink', function() {
 		safefs.unlink(localDir, function(err) {
-			errorEqual(
+			nullish(
 				err,
-				null,
 				"there should be no error when trying to unlink a path that doesn't exit"
 			)
 		})
@@ -64,7 +63,7 @@ suite('safefs', function(suite, test) {
 
 	test('mkdir', function(complete) {
 		safefs.mkdir(localDir, function(err) {
-			errorEqual(err, null, 'there should be no error')
+			nullish(err, 'there should be no error')
 			safefs.exists(localDir, function(exists) {
 				equal(exists, true, 'this directory should now exist')
 				complete()
@@ -76,10 +75,10 @@ suite('safefs', function(suite, test) {
 	// check writing a file that is in a path that doesn't exist
 	test('writeFile', function(complete) {
 		safefs.writeFile(localFile, 'abc', function(err) {
-			errorEqual(err, null, 'there should be no error')
+			nullish(err, 'there should be no error')
 			// this also checks graceful-fs aliases
 			safefs.readFile(localFile, function(err, data) {
-				errorEqual(err, null, 'there should be no error')
+				nullish(err, 'there should be no error')
 				equal(data.toString(), 'abc', 'result data should be as expected')
 				complete()
 			})
@@ -88,10 +87,10 @@ suite('safefs', function(suite, test) {
 
 	test('appendFile', function(complete) {
 		safefs.appendFile(localFile, '123', function(err) {
-			errorEqual(err, null, 'there should be no error')
+			nullish(err, 'there should be no error')
 			// this also checks graceful-fs aliases
 			safefs.readFile(localFile, function(err, data) {
-				errorEqual(err, null, 'there should be no error')
+				nullish(err, 'there should be no error')
 				equal(data.toString(), 'abc123', 'result data should be as expected')
 				complete()
 			})
@@ -100,7 +99,7 @@ suite('safefs', function(suite, test) {
 
 	test('ensurePath', function(complete) {
 		safefs.ensurePath(localSubDir, function(err, existed) {
-			errorEqual(err, null, 'there should be no error')
+			nullish(err, 'there should be no error')
 			equal(
 				existed,
 				false,
@@ -109,7 +108,7 @@ suite('safefs', function(suite, test) {
 			safefs.exists(localSubDir, function(exists) {
 				equal(exists, true, 'the directory should now exist')
 				safefs.ensurePath(localSubDir, function(err, existed) {
-					errorEqual(err, null, 'there should be no error')
+					nullish(err, 'there should be no error')
 					equal(existed, true, 'the directory should now have existed')
 					complete()
 				})

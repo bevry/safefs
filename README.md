@@ -46,9 +46,10 @@ Stop getting EMFILE errors! Open only as many files as the operating system supp
 
 <p>This package is published with the following editions:</p>
 
-<ul><li><code>safefs</code> aliases <code>safefs/index.js</code> which uses <a href="https://editions.bevry.me" title="Editions are the best way to produce and consume packages you care about.">Editions</a> to automatically select the correct edition for the consumers environment</li>
-<li><code>safefs/source/index.js</code> is esnext source code with require for modules</li>
-<li><code>safefs/edition-node-0.12/index.js</code> is esnext compiled for node.js 0.12 with require for modules</li></ul>
+<ul><li><code>safefs</code> aliases <code>safefs/source/index.js</code></li>
+<li><code>safefs/source/index.js</code> is esnext source code with require for modules</li></ul>
+
+<p>Environments older than Node.js v8 may need <a href="https://babeljs.io/docs/usage/polyfill/" title="A polyfill that emulates missing ECMAScript environment features">Babel's Polyfill</a> or something similar.</p>
 
 <!-- /INSTALL -->
 
