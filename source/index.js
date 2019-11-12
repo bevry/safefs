@@ -1,56 +1,56 @@
 /* eslint no-sync:0 */
+'use strict'
 
 // Import
 const fsUtil = require('graceful-fs')
 const pathUtil = require('path')
 
-
 // =====================================
 // Define Module
 
 const safefs = {
-
 	// =====================================
 	// Our own custom functions
 
 	// Get the parent path
-	getParentPathSync (path) {
-		return path
-			// remove trailing slashes
-			.replace(/[\/\\]$/, '')
-			// remove last directory
-			.replace(/[\/\\][^\/\\]+$/, '')
+	getParentPathSync(path) {
+		return (
+			path
+				// remove trailing slashes
+				.replace(/[/\\]$/, '')
+				// remove last directory
+				.replace(/[/\\][^/\\]+$/, '')
+		)
 	},
-
 
 	// Ensure path exists
 	// next(err, existed)
-	ensurePath (path, opts, next) {
+	ensurePath(path, opts, next) {
 		// Prepare
-		if ( next == null ) {
+		if (next == null) {
 			next = opts
 			opts = null
 		}
 		opts = opts || {}
 
 		// Check
-		safefs.exists(path, function (exists) {
+		safefs.exists(path, function(exists) {
 			// Error
-			if ( exists )  return next(null, true)
+			if (exists) return next(null, true)
 
 			// Success
 			const parentPath = safefs.getParentPathSync(path)
-			safefs.ensurePath(parentPath, opts, function (err) {
+			safefs.ensurePath(parentPath, opts, function(err) {
 				// Error
-				if ( err )  return next(err, false)
+				if (err) return next(err, false)
 
 				// Success
-				safefs.mkdir(path, opts.mode, function () {
+				safefs.mkdir(path, opts.mode, function() {
 					// ignore mkdir error, as if it already exists, then we are winning
 
-					safefs.exists(path, function (exists) {
+					safefs.exists(path, function(exists) {
 						// Error
-						if ( !exists ) {
+						if (!exists) {
 							const err = new Error(`Failed to create the directory: ${path}`)
 							return next(err, false)
 						}
@@ -66,23 +66,22 @@ const safefs = {
 		return safefs
 	},
 
-
 	// =====================================
 	// Safe Wrappers for Standard Methods
 
 	// Write File
 	// next(err)
-	writeFile (path, data, opts, next) {
+	writeFile(path, data, opts, next) {
 		// Prepare
-		if ( next == null ) {
+		if (next == null) {
 			next = opts
 			opts = null
 		}
 
 		// Ensure path
-		safefs.ensurePath(pathUtil.dirname(path), opts, function (err) {
+		safefs.ensurePath(pathUtil.dirname(path), opts, function(err) {
 			// Error
-			if ( err )  return next(err)
+			if (err) return next(err)
 
 			// Write data
 			fsUtil.writeFile(path, data, opts, next)
@@ -94,17 +93,17 @@ const safefs = {
 
 	// Append File
 	// next(err)
-	appendFile (path, data, opts, next) {
+	appendFile(path, data, opts, next) {
 		// Prepare
-		if ( next == null ) {
+		if (next == null) {
 			next = opts
 			opts = null
 		}
 
 		// Ensure path
-		safefs.ensurePath(pathUtil.dirname(path), opts, function (err) {
+		safefs.ensurePath(pathUtil.dirname(path), opts, function(err) {
 			// Error
-			if ( err )  return next(err)
+			if (err) return next(err)
 
 			// Write data
 			fsUtil.appendFile(path, data, opts, next)
@@ -116,13 +115,13 @@ const safefs = {
 
 	// Mkdir
 	// next(err)
-	mkdir (path, mode, next) {
+	mkdir(path, mode, next) {
 		// Prepare
-		if ( next == null ) {
+		if (next == null) {
 			next = mode
 			mode = null
 		}
-		if ( mode == null ) {
+		if (mode == null) {
 			/* eslint no-bitwise:0, no-magic-numbers:0 */
 			mode = 0o777 & ~process.umask()
 		}
@@ -137,10 +136,10 @@ const safefs = {
 	// Unlink
 	// don't error if the path doesn't already exist
 	// next(err)
-	unlink (path, next) {
+	unlink(path, next) {
 		// Stat
-		safefs.exists(path, function (exists) {
-			if ( exists === false )  return next()
+		safefs.exists(path, function(exists) {
+			if (exists === false) return next()
 			fsUtil.unlink(path, next)
 		})
 
@@ -150,12 +149,12 @@ const safefs = {
 }
 
 // Add any missing methods
-Object.keys(fsUtil).forEach(function (key) {
+Object.keys(fsUtil).forEach(function(key) {
 	const value = fsUtil[key]
 	// we do the `!safefs[key]` as we don't want to over-write our own enhancements
 	// we do the `value.bind` check, as we may interate across trivial types
 	// we do the `Function.prototype.bind` check, as underscore is a function that has it's own bind
-	if ( !safefs[key] && value && value.bind === Function.prototype.bind ) {
+	if (!safefs[key] && value && value.bind === Function.prototype.bind) {
 		safefs[key] = value.bind(fsUtil)
 	}
 })
