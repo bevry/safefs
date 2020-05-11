@@ -33,31 +33,9 @@ Stop getting EMFILE errors! Open only as many files as the operating system supp
 <!-- /DESCRIPTION -->
 
 
-<!-- INSTALL/ -->
-
-<h2>Install</h2>
-
-<a href="https://npmjs.com" title="npm is a package manager for javascript"><h3>npm</h3></a>
-<ul>
-<li>Install: <code>npm install --save safefs</code></li>
-<li>Require: <code>require('safefs')</code></li>
-</ul>
-
-<h3><a href="https://editions.bevry.me" title="Editions are the best way to produce and consume packages you care about.">Editions</a></h3>
-
-<p>This package is published with the following editions:</p>
-
-<ul><li><code>safefs</code> aliases <code>safefs/source/index.js</code></li>
-<li><code>safefs/source/index.js</code> is esnext source code with require for modules</li></ul>
-
-<p>Environments older than Node.js v8 may need <a href="https://babeljs.io/docs/usage/polyfill/" title="A polyfill that emulates missing ECMAScript environment features">Babel's Polyfill</a> or something similar.</p>
-
-<!-- /INSTALL -->
-
-
 ## Usage
 
-``` javascript
+```javascript
 var safefs = require('safefs')
 ```
 
@@ -65,15 +43,35 @@ SafeFS uses [graceful-fs](https://npmjs.org/package/graceful-fs) to wrap all of 
 
 On-top of graceful-fs, SafeFS also adds additional wrapping on the following methods:
 
-- `writeFile(path, data, options?, next)` - ensure the full path exists before writing to it
-- `appendFile(path, data, options?, next)` -  ensure the full path exists before writing to it
-- `mkdir(path, mode?, next)` - mode defaults to `0o777 & (~process.umask())`
-- `unlink(path, next)` - checks if the file exists before removing it
+-   `writeFile(path, data, options?, next)` - ensure the full path exists before writing to it
+-   `appendFile(path, data, options?, next)` - ensure the full path exists before writing to it
+-   `mkdir(path, mode?, next)` - mode defaults to `0o777 & (~process.umask())`
+-   `unlink(path, next)` - checks if the file exists before removing it
 
 SafeFS also define these additional methods:
 
-- `ensurePath(path, options, next)` - ensure the full path exists, equivalent to unix's `mdir -p path`
-- `getParentPathSync(path)` - returns the parent directory of the path
+-   `ensurePath(path, options, next)` - ensure the full path exists, equivalent to unix's `mdir -p path`
+-   `getParentPathSync(path)` - returns the parent directory of the path
+
+<!-- INSTALL/ -->
+
+<h2>Install</h2>
+
+<a href="https://npmjs.com" title="npm is a package manager for javascript"><h3>npm</h3></a>
+<ul>
+<li>Install: <code>npm install --save safefs</code></li>
+<li>Import: <code>import * as pkg from ('safefs')</code></li>
+<li>Require: <code>const pkg = require('safefs')</code></li>
+</ul>
+
+<h3><a href="https://editions.bevry.me" title="Editions are the best way to produce and consume packages you care about.">Editions</a></h3>
+
+<p>This package is published with the following editions:</p>
+
+<ul><li><code>safefs</code> aliases <code>safefs/source/index.js</code></li>
+<li><code>safefs/source/index.js</code> is <a href="https://en.wikipedia.org/wiki/ECMAScript#ES.Next" title="ECMAScript Next">ESNext</a> source code for <a href="https://nodejs.org" title="Node.js is a JavaScript runtime built on Chrome's V8 JavaScript engine">Node.js</a> with <a href="https://nodejs.org/dist/latest-v5.x/docs/api/modules.html" title="Node/CJS Modules">Require</a> for modules</li></ul>
+
+<!-- /INSTALL -->
 
 
 <!-- HISTORY/ -->
@@ -102,7 +100,7 @@ SafeFS also define these additional methods:
 
 These amazing people are maintaining this project:
 
-<ul><li><a href="http://balupton.com">Benjamin Lupton</a> — <a href="https://github.com/bevry/safefs/commits?author=balupton" title="View the GitHub contributions of Benjamin Lupton on repository bevry/safefs">view contributions</a></li></ul>
+<ul><li><a href="https://balupton.com">Benjamin Lupton</a> — <a href="https://github.com/bevry/safefs/commits?author=balupton" title="View the GitHub contributions of Benjamin Lupton on repository bevry/safefs">view contributions</a></li></ul>
 
 <h3>Sponsors</h3>
 
@@ -122,11 +120,10 @@ No sponsors yet! Will you be the first?
 
 These amazing people have contributed code to this project:
 
-<ul><li><a href="http://balupton.com">Benjamin Lupton</a> — <a href="https://github.com/bevry/safefs/commits?author=balupton" title="View the GitHub contributions of Benjamin Lupton on repository bevry/safefs">view contributions</a></li>
-<li><a href="http://www.linkedin.com/in/jagill/">James Gill</a> — <a href="https://github.com/bevry/safefs/commits?author=jagill" title="View the GitHub contributions of James Gill on repository bevry/safefs">view contributions</a></li>
-<li><a href="http://seanfridman.com">Sean Fridman</a> — <a href="https://github.com/bevry/safefs/commits?author=sfrdmn" title="View the GitHub contributions of Sean Fridman on repository bevry/safefs">view contributions</a></li>
-<li><a href="http://dontkry.com">Kyle Robinson Young</a> — <a href="https://github.com/bevry/safefs/commits?author=shama" title="View the GitHub contributions of Kyle Robinson Young on repository bevry/safefs">view contributions</a></li>
-<li><a href="http://github.com/apps/dependabot-preview">dependabot-preview[bot]</a> — <a href="https://github.com/bevry/safefs/commits?author=dependabot-preview[bot]" title="View the GitHub contributions of dependabot-preview[bot] on repository bevry/safefs">view contributions</a></li></ul>
+<ul><li><a href="https://balupton.com">Benjamin Lupton</a> — <a href="https://github.com/bevry/safefs/commits?author=balupton" title="View the GitHub contributions of Benjamin Lupton on repository bevry/safefs">view contributions</a></li>
+<li><a href="https://github.com/jagill">James Gill</a> — <a href="https://github.com/bevry/safefs/commits?author=jagill" title="View the GitHub contributions of James Gill on repository bevry/safefs">view contributions</a></li>
+<li><a href="https://github.com/shama">Kyle Robinson Young</a> — <a href="https://github.com/bevry/safefs/commits?author=shama" title="View the GitHub contributions of Kyle Robinson Young on repository bevry/safefs">view contributions</a></li>
+<li><a href="https://github.com/sfrdmn">Sean Fridman</a> — <a href="https://github.com/bevry/safefs/commits?author=sfrdmn" title="View the GitHub contributions of Sean Fridman on repository bevry/safefs">view contributions</a></li></ul>
 
 <a href="https://github.com/bevry/safefs/blob/master/CONTRIBUTING.md#files">Discover how you can contribute by heading on over to the <code>CONTRIBUTING.md</code> file.</a>
 
@@ -140,7 +137,7 @@ These amazing people have contributed code to this project:
 Unless stated otherwise all works are:
 
 <ul><li>Copyright &copy; 2013+ <a href="http://bevry.me">Bevry Pty Ltd</a></li>
-<li>Copyright &copy; 2011-2012 <a href="http://balupton.com">Benjamin Lupton</a></li></ul>
+<li>Copyright &copy; 2011-2012 <a href="https://balupton.com">Benjamin Lupton</a></li></ul>
 
 and licensed under:
 
