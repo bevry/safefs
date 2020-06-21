@@ -1,7 +1,7 @@
 {
   "title": "Safe FS",
   "name": "safefs",
-  "version": "6.7.0",
+  "version": "6.8.0",
   "description": "Stop getting EMFILE errors! Open only as many files as the operating system supports.",
   "homepage": "https://github.com/bevry/safefs",
   "license": "MIT",
@@ -91,7 +91,7 @@
     "graceful-fs": "^4.2.4"
   },
   "devDependencies": {
-    "@bevry/update-contributors": "1.9.0",
+    "@bevry/update-contributors": "^1.9.0",
     "assert-helpers": "^6.8.0",
     "eslint": "^7.3.0",
     "eslint-config-bevry": "^3.8.0",
@@ -100,9 +100,9 @@
     "eslint-plugin-prettier": "^3.1.4",
     "kava": "^5.7.0",
     "prettier": "^2.0.5",
-    "projectz": "2.5.0",
+    "projectz": "^2.9.0",
     "rimraf": "^3.0.2",
-    "valid-directory": "2.2.0"
+    "valid-directory": "^2.5.0"
   },
   "scripts": {
     "our:clean": "rm -Rf ./docs ./edition* ./es2015 ./es5 ./out ./.next",
