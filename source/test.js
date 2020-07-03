@@ -5,7 +5,7 @@
 const { equal, nullish } = require('assert-helpers')
 const { suite } = require('kava')
 const rimraf = require('rimraf')
-const safefs = require('./')
+const safefs = require('./index.js')
 
 // Prepare
 const localDir = process.cwd() + '/tmp'
