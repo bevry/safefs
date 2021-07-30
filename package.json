@@ -1,7 +1,7 @@
 {
   "title": "Safe FS",
   "name": "safefs",
-  "version": "6.15.0",
+  "version": "6.16.0",
   "description": "Stop getting EMFILE errors! Open only as many files as the operating system supports.",
   "homepage": "https://github.com/bevry/safefs",
   "license": "MIT",
@@ -72,7 +72,7 @@
   },
   "editions": [
     {
-      "description": "ESNext source code for Node.js 10 || 12 || 14 with Require for modules",
+      "description": "ESNext source code for Node.js 10 || 12 || 14 || 16 with Require for modules",
       "directory": "source",
       "entry": "index.js",
       "tags": [
@@ -82,7 +82,7 @@
         "require"
       ],
       "engines": {
-        "node": "10 || 12 || 14"
+        "node": "10 || 12 || 14 || 16"
       }
     }
   ],
@@ -92,16 +92,16 @@
     "graceful-fs": "^4.2.6"
   },
   "devDependencies": {
-    "@bevry/update-contributors": "^1.18.0",
-    "assert-helpers": "^8.2.0",
+    "@bevry/update-contributors": "^1.19.0",
+    "assert-helpers": "^8.4.0",
     "eslint": "^7.31.0",
-    "eslint-config-bevry": "^3.23.0",
+    "eslint-config-bevry": "^3.27.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-babel": "^5.3.1",
     "eslint-plugin-prettier": "^3.4.0",
-    "kava": "^5.14.0",
+    "kava": "^5.15.0",
     "prettier": "^2.3.2",
-    "projectz": "^2.18.0",
+    "projectz": "^2.22.0",
     "rimraf": "^3.0.2",
     "valid-directory": "^3.7.0"
   },
