@@ -1,14 +1,17 @@
 /* eslint no-sync:0 */
 'use strict'
 
+// @todo add windows support (use join for paths)
+
 // Import
+const { rm } = require('fs')
+const { tmpdir } = require('os')
 const { equal, nullish } = require('assert-helpers')
 const { suite } = require('kava')
-const rimraf = require('rimraf')
 const safefs = require('./index.js')
 
 // Prepare
-const localDir = process.cwd() + '/tmp'
+const localDir = tmpdir() + '/safefs-test-' + Math.random()
 const localFile = localDir + '/1/2.txt'
 const localSubDir = localDir + '/3/4'
 
@@ -22,17 +25,17 @@ suite('safefs', function (suite, test) {
 		equal(
 			safefs.getParentPathSync('a/b/c'),
 			'a/b',
-			'should work with directory without trailing slash'
+			'should work with directory without trailing slash',
 		)
 		equal(
 			safefs.getParentPathSync('a/b/c/'),
 			'a/b',
-			'should work with directory with trailing slash'
+			'should work with directory with trailing slash',
 		)
 	})
 
 	test('cleaning', function (complete) {
-		rimraf(localDir, complete)
+		rm(localDir, { recursive: true, force: true, maxRetries: 2 }, complete)
 	})
 
 	// test graceful-fs alias
@@ -56,7 +59,7 @@ suite('safefs', function (suite, test) {
 		safefs.unlink(localDir, function (err) {
 			nullish(
 				err,
-				"there should be no error when trying to unlink a path that doesn't exit"
+				"there should be no error when trying to unlink a path that doesn't exit",
 			)
 		})
 	})
@@ -103,7 +106,7 @@ suite('safefs', function (suite, test) {
 			equal(
 				existed,
 				false,
-				'the directory should not have existed, so existed should be false'
+				'the directory should not have existed, so existed should be false',
 			)
 			safefs.exists(localSubDir, function (exists) {
 				equal(exists, true, 'the directory should now exist')
@@ -117,6 +120,6 @@ suite('safefs', function (suite, test) {
 	})
 
 	test('cleaning', function (complete) {
-		rimraf(localDir, complete)
+		rm(localDir, { recursive: true }, complete)
 	})
 })
