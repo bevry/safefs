@@ -89,7 +89,8 @@
   "type": "commonjs",
   "main": "source/index.js",
   "dependencies": {
-    "graceful-fs": "^4.2.11"
+    "graceful-fs": "^4.2.11",
+    "version-compare": "^3.0.0"
   },
   "devDependencies": {
     "@bevry/update-contributors": "^1.23.0",
@@ -133,6 +134,7 @@
   },
   "prettier": {
     "semi": false,
-    "singleQuote": true
+    "singleQuote": true,
+    "trailingComma": "es5"
   }
 }

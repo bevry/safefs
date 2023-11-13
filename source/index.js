@@ -1,18 +1,33 @@
 /* eslint no-sync:0 */
 'use strict'
 
-// Import
-const fsUtil = require('graceful-fs')
+// builtins
 const pathUtil = require('path')
+const processUtil = require('process')
+const nodeVersion = processUtil.versions.node
+const umask = processUtil.umask
+const cwd = processUtil.cwd
+const exec = require('child_process').exec
+
+// packages
+const fsUtil = require('graceful-fs')
+const versionCompare = require('version-compare').default
 
 // =====================================
 // Define Module
 
+/**
+ * Utilities to safely interact with the filesystem.
+ */
 const safefs = {
 	// =====================================
 	// Our own custom functions
 
-	// Get the parent path
+	/**
+	 * Get the parent path
+	 * @param  {String} path
+	 * @return {String}
+	 */
 	getParentPathSync(path) {
 		return (
 			path
@@ -23,8 +38,20 @@ const safefs = {
 		)
 	},
 
-	// Ensure path exists
-	// next(err, existed)
+	/**
+	 * @callback EnsurePathCallback
+	 * @param {Error|null} err
+	 * @param {Boolean} existed
+	 * @returns {void}
+	 */
+	/**
+	 * Ensure the path exists
+	 * @param {String} path
+	 * @param {Object} opts
+	 * @param {Number} opts.mode
+	 * @param {EnsurePathCallback} next
+	 * @returns {this}
+	 */
 	ensurePath(path, opts, next) {
 		// Prepare
 		if (next == null) {
@@ -34,7 +61,7 @@ const safefs = {
 		opts = opts || {}
 
 		// Check
-		safefs.exists(path, function (exists) {
+		fsUtil.exists(path, function (exists) {
 			// Error
 			if (exists) return next(null, true)
 
@@ -48,7 +75,7 @@ const safefs = {
 				safefs.mkdir(path, opts.mode, function () {
 					// ignore mkdir error, as if it already exists, then we are winning
 
-					safefs.exists(path, function (exists) {
+					fsUtil.exists(path, function (exists) {
 						// Error
 						if (!exists) {
 							const err = new Error(`Failed to create the directory: ${path}`)
@@ -69,8 +96,19 @@ const safefs = {
 	// =====================================
 	// Safe Wrappers for Standard Methods
 
-	// Write File
-	// next(err)
+	/**
+	 * @callback Errback
+	 * @param {Error|null} err
+	 * @returns {void}
+	 */
+	/**
+	 * Write the file, ensuring the path exists
+	 * @param {String} path
+	 * @param {String|Buffer} data
+	 * @param {WriteFileOptions} opts
+	 * @param {Errback} next
+	 * @returns {this}
+	 */
 	writeFile(path, data, opts, next) {
 		// Prepare
 		if (next == null) {
@@ -91,8 +129,14 @@ const safefs = {
 		return safefs
 	},
 
-	// Append File
-	// next(err)
+	/**
+	 * Append to the file, ensuring the path exists
+	 * @param {String} path
+	 * @param {String|Buffer} data
+	 * @param {WriteFileOptions} opts
+	 * @param {Errback} next
+	 * @returns {this}
+	 */
 	appendFile(path, data, opts, next) {
 		// Prepare
 		if (next == null) {
@@ -113,8 +157,13 @@ const safefs = {
 		return safefs
 	},
 
-	// Mkdir
-	// next(err)
+	/**
+	 * Make the directory
+	 * @param {String} path
+	 * @param {Number} mode
+	 * @param {Errback} next
+	 * @returns {this}
+	 */
 	mkdir(path, mode, next) {
 		// Prepare
 		if (next == null) {
@@ -123,7 +172,7 @@ const safefs = {
 		}
 		if (mode == null) {
 			/* eslint no-bitwise:0, no-magic-numbers:0 */
-			mode = 0o777 & ~process.umask()
+			mode = 0o777 & ~umask()
 		}
 
 		// Action
@@ -133,18 +182,50 @@ const safefs = {
 		return safefs
 	},
 
-	// Unlink
-	// don't error if the path doesn't already exist
-	// next(err)
+	/**
+	 * Remove the file, don't error if the path is already removed.
+	 * @param {String} path
+	 * @param {Errback} next
+	 * @returns {this}
+	 */
 	unlink(path, next) {
 		// Stat
-		safefs.exists(path, function (exists) {
+		fsUtil.exists(path, function (exists) {
 			if (exists === false) return next()
 			fsUtil.unlink(path, next)
 		})
 
 		// Chain
 		return safefs
+	},
+
+	/**
+	 * Remove the directory, don't error if the path is already removed.
+	 * @param {String} path
+	 * @param {Errback} next
+	 * @returns {this}
+	 */
+	rmdir(path, next) {
+		function wrappedNext(err) {
+			if (err && err.code === 'ENOENT') return next()
+			next(err)
+		}
+
+		// https://nodejs.org/api/fs.html#fsrmdirpath-options-callback
+		if (versionCompare(nodeVersion, '14') >= 0) {
+			fsUtil.rm(
+				path,
+				{ recursive: true, force: true, maxRetries: 2 },
+				wrappedNext
+			)
+		} else if (
+			versionCompare(nodeVersion, '12') >= 0 &&
+			versionCompare(nodeVersion, '16') < 0
+		) {
+			fsUtil.rmdir(path, { recursive: true, maxRetries: 2 }, wrappedNext)
+		} else {
+			exec(`rm -rf ${JSON.stringify(path)}`, { cwd: cwd() }, wrappedNext)
+		}
 	},
 }
 

@@ -1,5 +1,8 @@
 # History
 
+-   Added JSDoc comments
+-   Added `rmdir` with fallbacks for old Node.js versions
+
 ## v7.1.0 2023 November 13
 
 -   Updated dependencies, [base files](https://github.com/bevry/base), and [editions](https://editions.bevry.me) using [boundation](https://github.com/bevry/boundation)

@@ -4,16 +4,18 @@
 // @todo add windows support (use join for paths)
 
 // Import
-const { rm } = require('fs')
-const { tmpdir } = require('os')
-const { equal, nullish } = require('assert-helpers')
-const { suite } = require('kava')
+const tmpdir = require('os').tmpdir
+const join = require('path').join
+const suite = require('kava').suite
+const assertUtil = require('assert-helpers')
+const equal = assertUtil.equal
+const nullish = assertUtil.nullish
 const safefs = require('./index.js')
 
 // Prepare
-const localDir = tmpdir() + '/safefs-test-' + Math.random()
-const localFile = localDir + '/1/2.txt'
-const localSubDir = localDir + '/3/4'
+const localDir = join(tmpdir(), `bevry-safefs-${Math.random()}`)
+const localFile = join(localDir, '1', '2.txt')
+const localSubDir = join(localDir, '3', '4')
 
 // =====================================
 // Tests
@@ -21,31 +23,39 @@ const localSubDir = localDir + '/3/4'
 // Types
 suite('safefs', function (suite, test) {
 	test('getParentPathSync', function () {
-		equal(safefs.getParentPathSync('a/b/c.js'), 'a/b', 'should work with file')
 		equal(
-			safefs.getParentPathSync('a/b/c'),
-			'a/b',
-			'should work with directory without trailing slash',
+			safefs.getParentPathSync(join('a', 'b', 'c.js')),
+			join('a', 'b'),
+			'should work with file'
 		)
 		equal(
-			safefs.getParentPathSync('a/b/c/'),
-			'a/b',
-			'should work with directory with trailing slash',
+			safefs.getParentPathSync(join('a', 'b', 'c')),
+			join('a', 'b'),
+			'should work with directory without trailing slash'
 		)
-	})
-
-	test('cleaning', function (complete) {
-		rm(localDir, { recursive: true, force: true, maxRetries: 2 }, complete)
+		equal(
+			safefs.getParentPathSync(join('a', 'b', 'c')),
+			join('a', 'b'),
+			'should work with directory with trailing slash'
+		)
 	})
 
 	// test graceful-fs alias
 	test('exists', function (complete) {
 		safefs.exists(__dirname, function (exists) {
 			equal(exists, true, 'this directory should exist')
-			safefs.exists(localDir, function (exists) {
-				equal(exists, false, 'this directory should not exist')
-				complete()
-			})
+			complete()
+		})
+	})
+
+	// remove and confirm
+	test('cleaning', function (complete) {
+		safefs.rmdir(localDir, complete)
+	})
+	test('exists', function (complete) {
+		safefs.exists(localDir, function (exists) {
+			equal(exists, false, 'the directory should have been removed')
+			complete()
 		})
 	})
 
@@ -59,7 +69,7 @@ suite('safefs', function (suite, test) {
 		safefs.unlink(localDir, function (err) {
 			nullish(
 				err,
-				"there should be no error when trying to unlink a path that doesn't exit",
+				"there should be no error when trying to unlink a path that doesn't exit"
 			)
 		})
 	})
@@ -106,7 +116,7 @@ suite('safefs', function (suite, test) {
 			equal(
 				existed,
 				false,
-				'the directory should not have existed, so existed should be false',
+				'the directory should not have existed, so existed should be false'
 			)
 			safefs.exists(localSubDir, function (exists) {
 				equal(exists, true, 'the directory should now exist')
@@ -119,7 +129,14 @@ suite('safefs', function (suite, test) {
 		})
 	})
 
+	// remove and confirm
 	test('cleaning', function (complete) {
-		rm(localDir, { recursive: true }, complete)
+		safefs.rmdir(localDir, complete)
+	})
+	test('exists', function (complete) {
+		safefs.exists(localDir, function (exists) {
+			equal(exists, false, 'the directory should have been removed')
+			complete()
+		})
 	})
 })
