@@ -1,7 +1,7 @@
 {
   "title": "Safe FS",
   "name": "safefs",
-  "version": "7.1.0",
+  "version": "8.0.0",
   "description": "Stop getting EMFILE errors! Open only as many files as the operating system supports.",
   "homepage": "https://github.com/bevry/safefs",
   "license": "Artistic-2.0",
@@ -12,7 +12,9 @@
     "fs",
     "node",
     "openFile",
-    "path"
+    "path",
+    "typed",
+    "types"
   ],
   "badges": {
     "list": [
@@ -68,11 +70,11 @@
     "url": "https://github.com/bevry/safefs.git"
   },
   "engines": {
-    "node": ">=14"
+    "node": ">=4"
   },
   "editions": [
     {
-      "description": "ESNext source code for Node.js 14 || 16 || 18 || 20 || 21 with Require for modules",
+      "description": "ESNext source code for Node.js 4 || 6 || 8 || 10 || 12 || 14 || 16 || 18 || 20 || 21 with Require for modules",
       "directory": "source",
       "entry": "index.js",
       "tags": [
@@ -82,7 +84,7 @@
         "require"
       ],
       "engines": {
-        "node": "14 || 16 || 18 || 20 || 21"
+        "node": "4 || 6 || 8 || 10 || 12 || 14 || 16 || 18 || 20 || 21"
       }
     }
   ],
@@ -100,17 +102,21 @@
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-babel": "^5.3.1",
     "eslint-plugin-prettier": "^5.0.1",
+    "jsdoc": "^4.0.2",
     "kava": "3.2.0",
-    "prettier": "^3.0.3",
+    "prettier": "^3.1.0",
     "projectz": "^2.23.0",
+    "surge": "^0.23.1",
     "valid-directory": "^4.1.0"
   },
   "scripts": {
     "our:clean": "rm -Rf ./docs ./edition* ./es2015 ./es5 ./out ./.next",
     "our:compile": "printf '%s\n' 'no need for this project'",
     "our:deploy": "printf '%s\n' 'no need for this project'",
-    "our:meta": "npm run our:meta:contributors && npm run our:meta:projectz",
+    "our:meta": "npm run our:meta:contributors && npm run our:meta:docs && npm run our:meta:projectz",
     "our:meta:contributors": "update-contributors",
+    "our:meta:docs": "npm run our:meta:docs:jsdoc",
+    "our:meta:docs:jsdoc": "rm -Rf ./docs && jsdoc --recurse --pedantic --access all --destination ./docs --package ./package.json --readme ./README.md ./source && mv ./docs/$npm_package_name/$npm_package_version/* ./docs/ && rm -Rf ./docs/$npm_package_name/$npm_package_version",
     "our:meta:projectz": "projectz compile",
     "our:release": "npm run our:release:prepare && npm run our:release:check-changelog && npm run our:release:check-dirty && npm run our:release:tag && npm run our:release:push",
     "our:release:check-changelog": "cat ./HISTORY.md | grep \"v$npm_package_version\" || (printf '%s\n' \"add a changelog entry for v$npm_package_version\" && exit -1)",
