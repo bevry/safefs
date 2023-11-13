@@ -205,7 +205,7 @@ const safefs = {
 	 * @param {Errback} next
 	 * @returns {this}
 	 */
-	rmdir(path, next) {
+	rimraf(path, next) {
 		function wrappedNext(err) {
 			if (err && err.code === 'ENOENT') return next()
 			next(err)

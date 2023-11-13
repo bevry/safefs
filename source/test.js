@@ -50,7 +50,7 @@ suite('safefs', function (suite, test) {
 
 	// remove and confirm
 	test('cleaning', function (complete) {
-		safefs.rmdir(localDir, complete)
+		safefs.rimraf(localDir, complete)
 	})
 	test('exists', function (complete) {
 		safefs.exists(localDir, function (exists) {
@@ -131,7 +131,7 @@ suite('safefs', function (suite, test) {
 
 	// remove and confirm
 	test('cleaning', function (complete) {
-		safefs.rmdir(localDir, complete)
+		safefs.rimraf(localDir, complete)
 	})
 	test('exists', function (complete) {
 		safefs.exists(localDir, function (exists) {
