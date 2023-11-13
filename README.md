@@ -54,6 +54,8 @@ SafeFS also define these additional methods:
 -   `ensurePath(path, options, next)` - ensure the full path exists, equivalent to unix's `mdir -p path`
 -   `getParentPathSync(path)` - returns the parent directory of the path
 
+If you want promises and a non-conflicting API, use [@bevry/file](https://github.com/bevry/file).
+
 <!-- INSTALL/ -->
 
 <h2>Install</h2>
