@@ -54,7 +54,19 @@ SafeFS also define these additional methods:
 -   `ensurePath(path, options, next)` - ensure the full path exists, equivalent to unix's `mdir -p path`
 -   `getParentPathSync(path)` - returns the parent directory of the path
 
-If you want promises and a non-conflicting API, use [@bevry/file](https://github.com/bevry/file).
+If you want promises and a non-conflicting API, use these instead:
+
+- [@bevry/fs-accessible](https://github.com/bevry/fs-accessible)
+- [@bevry/fs-executable](https://github.com/bevry/fs-executable)
+- [@bevry/fs-list](https://github.com/bevry/fs-list)
+- [@bevry/fs-mkdirp](https://github.com/bevry/fs-mkdirp)
+- [@bevry/fs-read](https://github.com/bevry/fs-read)
+- [@bevry/fs-readable](https://github.com/bevry/fs-readable)
+- [@bevry/fs-remove](https://github.com/bevry/fs-remove)
+- [@bevry/fs-rmdir](https://github.com/bevry/fs-rmdir)
+- [@bevry/fs-unlink](https://github.com/bevry/fs-unlink)
+- [@bevry/fs-write](https://github.com/bevry/fs-write)
+- [@bevry/fs-writable](https://github.com/bevry/fs-writable)
 
 <!-- INSTALL/ -->
 
