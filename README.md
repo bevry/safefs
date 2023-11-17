@@ -54,7 +54,9 @@ SafeFS also define these additional methods:
 -   `ensurePath(path, options, next)` - ensure the full path exists, equivalent to unix's `mdir -p path`
 -   `getParentPathSync(path)` - returns the parent directory of the path
 
-If you want promises and a non-conflicting API, use these instead:
+## Alternatives
+
+You should use these instead, which use and provide modern APIs while providing brilliant ecosystem support:
 
 - [@bevry/fs-accessible](https://github.com/bevry/fs-accessible)
 - [@bevry/fs-executable](https://github.com/bevry/fs-executable)
