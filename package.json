@@ -1,7 +1,7 @@
 {
   "title": "Safe FS",
   "name": "safefs",
-  "version": "8.5.0",
+  "version": "8.6.0",
   "description": "Stop getting EMFILE errors! Open only as many files as the operating system supports.",
   "homepage": "https://github.com/bevry/safefs",
   "license": "Artistic-2.0",
@@ -96,22 +96,21 @@
   "main": "source/index.js",
   "dependencies": {
     "graceful-fs": "^4.2.11",
-    "version-compare": "^3.4.0"
+    "version-compare": "^3.8.0"
   },
   "devDependencies": {
     "@bevry/update-contributors": "^1.23.0",
-    "assert-helpers": "^11.6.0",
-    "eslint": "^8.54.0",
+    "assert-helpers": "^11.9.0",
+    "eslint": "^8.55.0",
     "eslint-config-bevry": "^5.2.0",
-    "eslint-config-prettier": "^9.0.0",
+    "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-babel": "^5.3.1",
     "eslint-plugin-prettier": "^5.0.1",
     "jsdoc": "^4.0.2",
     "kava": "^7.4.0",
     "prettier": "^3.1.0",
     "projectz": "^3.4.0",
-    "surge": "^0.23.1",
-    "valid-directory": "^4.5.0"
+    "valid-directory": "^4.6.0"
   },
   "scripts": {
     "our:clean": "rm -rf ./docs ./edition* ./es2015 ./es5 ./out ./.next",
@@ -145,6 +144,7 @@
   "prettier": {
     "semi": false,
     "singleQuote": true,
-    "trailingComma": "es5"
+    "trailingComma": "all",
+    "endOfLine": "lf"
   }
 }
