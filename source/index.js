@@ -216,7 +216,7 @@ const safefs = {
 			fsUtil.rm(
 				path,
 				{ recursive: true, force: true, maxRetries: 2 },
-				wrappedNext,
+				wrappedNext
 			)
 		} else if (
 			versionCompare(nodeVersion, '12') >= 0 &&

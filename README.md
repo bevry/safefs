@@ -1,9 +1,8 @@
 <!-- TITLE/ -->
 
-<h1>Safe FS</h1>
+# Safe FS
 
 <!-- /TITLE -->
-
 
 <!-- BADGES/ -->
 
@@ -24,7 +23,6 @@
 <span class="badge-twitch"><a href="https://www.twitch.tv/balupton" title="Join this project's community on Twitch"><img src="https://img.shields.io/twitch/status/balupton?logo=twitch" alt="Twitch community badge" /></a></span>
 
 <!-- /BADGES -->
-
 
 <!-- DESCRIPTION/ -->
 
@@ -73,26 +71,24 @@ You should use these instead, which use and provide modern APIs while providing 
 
 <!-- INSTALL/ -->
 
-<h2>Install</h2>
+## Install
 
-<a href="https://npmjs.com" title="npm is a package manager for javascript"><h3>npm</h3></a>
-<ul>
-<li>Install: <code>npm install --save safefs</code></li>
-<li>Import: <code>import * as pkg from ('safefs')</code></li>
-<li>Require: <code>const pkg = require('safefs')</code></li>
-</ul>
+### [npm](https://npmjs.com "npm is a package manager for javascript")
 
-<h3><a href="https://editions.bevry.me" title="Editions are the best way to produce and consume packages you care about.">Editions</a></h3>
+-   Install: `npm install --save safefs`
+-   Import: `import * as pkg from ('safefs')`
+-   Require: `const pkg = require('safefs')`
 
-<p>This package is published with the following editions:</p>
+### [Editions](https://editions.bevry.me "Editions are the best way to produce and consume packages you care about.")
 
-<ul><li><code>safefs</code> aliases <code>safefs/source/index.js</code></li>
-<li><code>safefs/source/index.js</code> is <a href="https://en.wikipedia.org/wiki/ECMAScript#ES.Next" title="ECMAScript Next">ESNext</a> source code for <a href="https://nodejs.org" title="Node.js is a JavaScript runtime built on Chrome's V8 JavaScript engine">Node.js</a> 4 || 6 || 8 || 10 || 12 || 14 || 16 || 18 || 20 || 21 with <a href="https://nodejs.org/dist/latest-v5.x/docs/api/modules.html" title="Node/CJS Modules">Require</a> for modules</li></ul>
+This package is published with the following editions:
+-   `safefs` aliases `safefs/index.cjs` which uses the [Editions Autoloader](https://github.com/bevry/editions "You can use the Editions Autoloader to autoload the appropriate edition for your consumers environment") to automatically select the correct edition for the consumer's environment
+-   `safefs/source/index.js` is [ESNext](https://en.wikipedia.org/wiki/ECMAScript#ES.Next "ECMAScript Next") source code for [Node.js](https://nodejs.org "Node.js is a JavaScript runtime built on Chrome's V8 JavaScript engine") 8 || 10 || 12 || 14 || 16 || 18 || 20 || 21 with [Require](https://nodejs.org/dist/latest-v5.x/docs/api/modules.html "Node/CJS Modules") for modules
+-   `safefs/edition-node-6/index.js` is [ESNext](https://en.wikipedia.org/wiki/ECMAScript#ES.Next "ECMAScript Next") compiled for [Node.js](https://nodejs.org "Node.js is a JavaScript runtime built on Chrome's V8 JavaScript engine") 4 || 6 || 8 || 10 || 12 || 14 || 16 || 18 || 20 || 21 with [Require](https://nodejs.org/dist/latest-v5.x/docs/api/modules.html "Node/CJS Modules") for modules
 
-<h3><a href="https://www.typescriptlang.org/" title="TypeScript is a typed superset of JavaScript that compiles to plain JavaScript. ">TypeScript</a></h3>
+### [TypeScript](https://www.typescriptlang.org/ "TypeScript is a typed superset of JavaScript that compiles to plain JavaScript.")
 
-This project provides its type information via inline <a href="http://usejsdoc.org" title="JSDoc is an API documentation generator for JavaScript, similar to Javadoc or phpDocumentor">JSDoc Comments</a>. To make use of this in <a href="https://www.typescriptlang.org/" title="TypeScript is a typed superset of JavaScript that compiles to plain JavaScript. ">TypeScript</a>, set your <code>maxNodeModuleJsDepth</code> compiler option to `5` or thereabouts. You can accomlish this via your `tsconfig.json` file like so:
-
+This project provides its type information via inline [JSDoc Comments](http://usejsdoc.org "JSDoc is an API documentation generator for JavaScript, similar to Javadoc or phpDocumentor"). To make use of this in [TypeScript](https://www.typescriptlang.org/ "TypeScript is a typed superset of JavaScript that compiles to plain JavaScript."), set your <code>maxNodeModuleJsDepth</code> compiler option to `5` or thereabouts. You can accomplish this via your `tsconfig.json` file like so:
 ``` json
 {
   "compilerOptions": {
@@ -103,38 +99,38 @@ This project provides its type information via inline <a href="http://usejsdoc.o
 
 <!-- /INSTALL -->
 
-
 <!-- HISTORY/ -->
 
-<h2>History</h2>
+## History
 
-<a href="https://github.com/bevry/safefs/blob/master/HISTORY.md#files">Discover the release history by heading on over to the <code>HISTORY.md</code> file.</a>
+[Discover the release history by heading on over to the `HISTORY.md` file.](https://github.com/bevry/safefs/blob/HEAD/HISTORY.md#files)
 
 <!-- /HISTORY -->
 
-
-<!-- CONTRIBUTE/ -->
-
-<h2>Contribute</h2>
-
-<a href="https://github.com/bevry/safefs/blob/master/CONTRIBUTING.md#files">Discover how you can contribute by heading on over to the <code>CONTRIBUTING.md</code> file.</a>
-
-<!-- /CONTRIBUTE -->
-
-
 <!-- BACKERS/ -->
 
-<h2>Backers</h2>
+## Backers
 
-<h3>Maintainers</h3>
+### Code
 
-These amazing people are maintaining this project:
+[Discover how to contribute via the `CONTRIBUTING.md` file.](https://github.com/bevry/safefs/blob/HEAD/CONTRIBUTING.md#files)
 
-<ul><li><a href="https://balupton.com">Benjamin Lupton</a> — <a href="https://github.com/bevry/safefs/commits?author=balupton" title="View the GitHub contributions of Benjamin Lupton on repository bevry/safefs">view contributions</a></li></ul>
+#### Authors
 
-<h3>Sponsors</h3>
+-   [Benjamin Lupton](https://balupton.com) — Accelerating collaborative wisdom.
 
-No sponsors yet! Will you be the first?
+#### Maintainers
+
+-   [Benjamin Lupton](https://github.com/balupton) — Accelerating collaborative wisdom.
+
+#### Contributors
+
+-   [Benjamin Lupton](https://github.com/balupton) — [view contributions](https://github.com/bevry/safefs/commits?author=balupton "View the GitHub contributions of Benjamin Lupton on repository bevry/safefs")
+-   [James Gill](https://github.com/jagill) — [view contributions](https://github.com/bevry/safefs/commits?author=jagill "View the GitHub contributions of James Gill on repository bevry/safefs")
+-   [Kyle Robinson Young](https://github.com/shama) — [view contributions](https://github.com/bevry/safefs/commits?author=shama "View the GitHub contributions of Kyle Robinson Young on repository bevry/safefs")
+-   [Sean Fridman](https://github.com/sfrdmn) — [view contributions](https://github.com/bevry/safefs/commits?author=sfrdmn "View the GitHub contributions of Sean Fridman on repository bevry/safefs")
+
+### Finances
 
 <span class="badge-githubsponsors"><a href="https://github.com/sponsors/balupton" title="Donate to this project using GitHub Sponsors"><img src="https://img.shields.io/badge/github-donate-yellow.svg" alt="GitHub Sponsors donate button" /></a></span>
 <span class="badge-thanksdev"><a href="https://thanks.dev/u/gh/bevry" title="Donate to this project using ThanksDev"><img src="https://img.shields.io/badge/thanksdev-donate-yellow.svg" alt="ThanksDev donate button" /></a></span>
@@ -145,31 +141,45 @@ No sponsors yet! Will you be the first?
 <span class="badge-crypto"><a href="https://bevry.me/crypto" title="Donate to this project using Cryptocurrency"><img src="https://img.shields.io/badge/crypto-donate-yellow.svg" alt="crypto donate button" /></a></span>
 <span class="badge-paypal"><a href="https://bevry.me/paypal" title="Donate to this project using Paypal"><img src="https://img.shields.io/badge/paypal-donate-yellow.svg" alt="PayPal donate button" /></a></span>
 
-<h3>Contributors</h3>
+#### Sponsors
 
-These amazing people have contributed code to this project:
+-   [Andrew Nesbitt](https://nesbitt.io) — Software engineer and researcher
+-   [Balsa](https://balsa.com) — We're Balsa, and we're building tools for builders.
+-   [Codecov](https://codecov.io/) — Empower developers with tools to improve code quality and testing.
+-   [Poonacha Medappa](https://poonachamedappa.com)
+-   [Rob Morris](https://github.com/Rob-Morris)
+-   [Sentry](https://sentry.io) — Real-time crash reporting for your web apps, mobile apps, and games.
+-   [Syntax](https://syntax.fm) — Syntax Podcast
 
-<ul><li><a href="https://balupton.com">Benjamin Lupton</a> — <a href="https://github.com/bevry/safefs/commits?author=balupton" title="View the GitHub contributions of Benjamin Lupton on repository bevry/safefs">view contributions</a></li>
-<li><a href="https://github.com/jagill">James Gill</a> — <a href="https://github.com/bevry/safefs/commits?author=jagill" title="View the GitHub contributions of James Gill on repository bevry/safefs">view contributions</a></li>
-<li><a href="https://github.com/shama">Kyle Robinson Young</a> — <a href="https://github.com/bevry/safefs/commits?author=shama" title="View the GitHub contributions of Kyle Robinson Young on repository bevry/safefs">view contributions</a></li>
-<li><a href="https://github.com/sfrdmn">Sean Fridman</a> — <a href="https://github.com/bevry/safefs/commits?author=sfrdmn" title="View the GitHub contributions of Sean Fridman on repository bevry/safefs">view contributions</a></li></ul>
+#### Donors
 
-<a href="https://github.com/bevry/safefs/blob/master/CONTRIBUTING.md#files">Discover how you can contribute by heading on over to the <code>CONTRIBUTING.md</code> file.</a>
+-   [Andrew Nesbitt](https://nesbitt.io)
+-   [Balsa](https://balsa.com)
+-   [Chad](https://opencollective.com/chad8)
+-   [Codecov](https://codecov.io/)
+-   [entroniq](https://gitlab.com/entroniq)
+-   [Jean-Luc Geering](https://github.com/jlgeering)
+-   [Michael Duane Mooring](https://mdm.cc)
+-   [Mohammed Shah](https://github.com/smashah)
+-   [Poonacha Medappa](https://poonachamedappa.com)
+-   [Rob Morris](https://github.com/Rob-Morris)
+-   [Sentry](https://sentry.io)
+-   [ServieJS](https://github.com/serviejs)
+-   [Skunk Team](https://skunk.team)
+-   [Syntax](https://syntax.fm)
 
 <!-- /BACKERS -->
 
-
 <!-- LICENSE/ -->
 
-<h2>License</h2>
+## License
 
 Unless stated otherwise all works are:
 
-<ul><li>Copyright &copy; 2013+ <a href="http://bevry.me">Bevry Pty Ltd</a></li>
-<li>Copyright &copy; 2011-2012 <a href="https://balupton.com">Benjamin Lupton</a></li></ul>
+-   Copyright &copy; [Benjamin Lupton](https://balupton.com)
 
 and licensed under:
 
-<ul><li><a href="http://spdx.org/licenses/Artistic-2.0.html">Artistic License 2.0</a></li></ul>
+-   [Artistic License 2.0](http://spdx.org/licenses/Artistic-2.0.html)
 
 <!-- /LICENSE -->
