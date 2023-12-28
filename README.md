@@ -82,9 +82,8 @@ You should use these instead, which use and provide modern APIs while providing 
 ### [Editions](https://editions.bevry.me "Editions are the best way to produce and consume packages you care about.")
 
 This package is published with the following editions:
--   `safefs` aliases `safefs/index.cjs` which uses the [Editions Autoloader](https://github.com/bevry/editions "You can use the Editions Autoloader to autoload the appropriate edition for your consumers environment") to automatically select the correct edition for the consumer's environment
--   `safefs/source/index.js` is [ESNext](https://en.wikipedia.org/wiki/ECMAScript#ES.Next "ECMAScript Next") source code for [Node.js](https://nodejs.org "Node.js is a JavaScript runtime built on Chrome's V8 JavaScript engine") 8 || 10 || 12 || 14 || 16 || 18 || 20 || 21 with [Require](https://nodejs.org/dist/latest-v5.x/docs/api/modules.html "Node/CJS Modules") for modules
--   `safefs/edition-node-6/index.js` is [ESNext](https://en.wikipedia.org/wiki/ECMAScript#ES.Next "ECMAScript Next") compiled for [Node.js](https://nodejs.org "Node.js is a JavaScript runtime built on Chrome's V8 JavaScript engine") 4 || 6 || 8 || 10 || 12 || 14 || 16 || 18 || 20 || 21 with [Require](https://nodejs.org/dist/latest-v5.x/docs/api/modules.html "Node/CJS Modules") for modules
+-   `safefs` aliases `safefs/source/index.js`
+-   `safefs/source/index.js` is [ESNext](https://en.wikipedia.org/wiki/ECMAScript#ES.Next "ECMAScript Next") source code for [Node.js](https://nodejs.org "Node.js is a JavaScript runtime built on Chrome's V8 JavaScript engine") 4 || 6 || 8 || 10 || 12 || 14 || 16 || 18 || 20 || 21 with [Require](https://nodejs.org/dist/latest-v5.x/docs/api/modules.html "Node/CJS Modules") for modules
 
 ### [TypeScript](https://www.typescriptlang.org/ "TypeScript is a typed superset of JavaScript that compiles to plain JavaScript.")
 
@@ -121,7 +120,7 @@ This project provides its type information via inline [JSDoc Comments](http://us
 
 #### Maintainers
 
--   [Benjamin Lupton](https://github.com/balupton) — Accelerating collaborative wisdom.
+-   [Benjamin Lupton](https://balupton.com) — Accelerating collaborative wisdom.
 
 #### Contributors
 
@@ -145,7 +144,7 @@ This project provides its type information via inline [JSDoc Comments](http://us
 
 -   [Andrew Nesbitt](https://nesbitt.io) — Software engineer and researcher
 -   [Balsa](https://balsa.com) — We're Balsa, and we're building tools for builders.
--   [Codecov](https://codecov.io/) — Empower developers with tools to improve code quality and testing.
+-   [Codecov](https://codecov.io) — Empower developers with tools to improve code quality and testing.
 -   [Poonacha Medappa](https://poonachamedappa.com)
 -   [Rob Morris](https://github.com/Rob-Morris)
 -   [Sentry](https://sentry.io) — Real-time crash reporting for your web apps, mobile apps, and games.
@@ -154,19 +153,30 @@ This project provides its type information via inline [JSDoc Comments](http://us
 #### Donors
 
 -   [Andrew Nesbitt](https://nesbitt.io)
+-   [Armen Mkrtchian](https://mogoni.dev)
 -   [Balsa](https://balsa.com)
 -   [Chad](https://opencollective.com/chad8)
--   [Codecov](https://codecov.io/)
+-   [Codecov](https://codecov.io)
+-   [dr.dimitru](https://veliovgroup.com)
+-   [Elliott Ditman](https://elliottditman.com)
 -   [entroniq](https://gitlab.com/entroniq)
+-   [GitHub](https://github.com/about)
+-   [Hunter Beast](https://cryptoquick.com)
 -   [Jean-Luc Geering](https://github.com/jlgeering)
 -   [Michael Duane Mooring](https://mdm.cc)
+-   [Michael Harry Scepaniak](https://michaelscepaniak.com)
 -   [Mohammed Shah](https://github.com/smashah)
+-   [Mr. Henry](https://mrhenry.be)
+-   [Nermal](https://arjunaditya.vercel.app)
+-   [Pleo](https://www.pleo.io)
 -   [Poonacha Medappa](https://poonachamedappa.com)
 -   [Rob Morris](https://github.com/Rob-Morris)
+-   [Robert de Forest](https://github.com/rdeforest)
 -   [Sentry](https://sentry.io)
 -   [ServieJS](https://github.com/serviejs)
 -   [Skunk Team](https://skunk.team)
 -   [Syntax](https://syntax.fm)
+-   [WriterJohnBuck](https://github.com/WriterJohnBuck)
 
 <!-- /BACKERS -->
 

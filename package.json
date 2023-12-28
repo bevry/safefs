@@ -1,14 +1,14 @@
 {
   "title": "Safe FS",
   "name": "safefs",
-  "version": "8.7.0",
+  "version": "8.8.0",
   "license": "Artistic-2.0",
   "description": "Stop getting EMFILE errors! Open only as many files as the operating system supports.",
   "homepage": "https://github.com/bevry/safefs",
   "funding": "https://bevry.me/fund",
   "repository": {
     "type": "git",
-    "url": "https://github.com/bevry/safefs.git"
+    "url": "git+https://github.com/bevry/safefs.git"
   },
   "bugs": {
     "url": "https://github.com/bevry/safefs/issues"
@@ -16,7 +16,6 @@
   "keywords": [
     "closeFile",
     "emfile",
-    "es2015",
     "esnext",
     "fs",
     "node",
@@ -73,14 +72,14 @@
   ],
   "contributors": [
     "Benjamin Lupton <b@lupton.cc> (https://balupton.com) (https://github.com/balupton)",
-    "James Gill (https://www.linkedin.com/in/jagill/) (https://github.com/jagill)",
+    "James Gill (https://www.linkedin.com/in/jagill) (https://github.com/jagill)",
     "Kyle Robinson Young (https://dontkry.com) (https://github.com/shama)",
     "Sean Fridman <mail@seanfridman.com> (https://seanfridman.com) (https://github.com/sfrdmn)"
   ],
   "sponsors": [
     "Andrew Nesbitt (https://nesbitt.io) (https://github.com/andrew): Software engineer and researcher",
     "Balsa <hello@balsa.com> (https://balsa.com) (https://github.com/balsa): We're Balsa, and we're building tools for builders.",
-    "Codecov <hello-codecov@sentry.io> (https://codecov.io/) (https://github.com/codecov): Empower developers with tools to improve code quality and testing.",
+    "Codecov <hello-codecov@sentry.io> (https://codecov.io) (https://github.com/codecov): Empower developers with tools to improve code quality and testing.",
     "Poonacha Medappa (https://poonachamedappa.com) (https://github.com/km-Poonacha)",
     "Rob Morris <rob@prismatik.com.au> (https://github.com/Rob-Morris)",
     "Sentry (https://sentry.io) (https://github.com/getsentry): Real-time crash reporting for your web apps, mobile apps, and games.",
@@ -88,26 +87,37 @@
   ],
   "donors": [
     "Andrew Nesbitt (https://nesbitt.io) (https://github.com/andrew)",
+    "Armen Mkrtchian (https://mogoni.dev) (https://github.com/Armenm)",
     "Balsa <hello@balsa.com> (https://balsa.com) (https://github.com/balsa)",
     "Chad (https://opencollective.com/chad8)",
-    "Codecov <hello-codecov@sentry.io> (https://codecov.io/) (https://github.com/codecov)",
+    "Codecov <hello-codecov@sentry.io> (https://codecov.io) (https://github.com/codecov)",
+    "dr.dimitru (https://veliovgroup.com) (https://github.com/dr-dimitru)",
+    "Elliott Ditman (https://elliottditman.com) (https://github.com/elliottditman)",
     "entroniq (https://gitlab.com/entroniq) (https://thanks.dev/d/gl/entroniq)",
+    "GitHub (https://github.com/about) (https://github.com/github)",
+    "Hunter Beast (https://cryptoquick.com) (https://github.com/cryptoquick)",
     "Jean-Luc Geering (https://github.com/jlgeering) (https://opencollective.com/jlgeering) (https://twitter.com/jlgeering)",
     "Michael Duane Mooring (https://mdm.cc) (https://github.com/mikeumus) (https://opencollective.com/mikeumus) (https://twitter.com/mikeumus)",
+    "Michael Harry Scepaniak <mhs1.sys@gmail.com> (https://michaelscepaniak.com) (https://github.com/hispanic)",
     "Mohammed Shah <shah@idk.uno> (https://github.com/smashah) (https://thanks.dev/d/gh/smashah) (https://twitter.com/smashah)",
+    "Mr. Henry <hello@mrhenry.be> (https://mrhenry.be) (https://github.com/mrhenry)",
+    "Nermal <nermalcat69@skiff.com> (https://arjunaditya.vercel.app) (https://github.com/nermalcat69)",
+    "Pleo (https://www.pleo.io) (https://github.com/pleo-io)",
     "Poonacha Medappa (https://poonachamedappa.com) (https://github.com/km-Poonacha)",
     "Rob Morris <rob@prismatik.com.au> (https://github.com/Rob-Morris)",
+    "Robert de Forest <guitar.robot@gmail.com> (https://github.com/rdeforest)",
     "Sentry (https://sentry.io) (https://github.com/getsentry)",
     "ServieJS (https://github.com/serviejs) (https://thanks.dev/d/gh/serviejs)",
     "Skunk Team (https://skunk.team) (https://github.com/skunkteam)",
-    "Syntax <scott@syntax.fm> (https://syntax.fm) (https://github.com/syntaxfm)"
+    "Syntax <scott@syntax.fm> (https://syntax.fm) (https://github.com/syntaxfm)",
+    "WriterJohnBuck (https://github.com/WriterJohnBuck)"
   ],
   "engines": {
     "node": ">=4"
   },
   "editions": [
     {
-      "description": "ESNext source code for Node.js 8 || 10 || 12 || 14 || 16 || 18 || 20 || 21 with Require for modules",
+      "description": "ESNext source code for Node.js 4 || 6 || 8 || 10 || 12 || 14 || 16 || 18 || 20 || 21 with Require for modules",
       "directory": "source",
       "entry": "index.js",
       "tags": [
@@ -117,58 +127,37 @@
         "require"
       ],
       "engines": {
-        "node": "8 || 10 || 12 || 14 || 16 || 18 || 20 || 21"
-      }
-    },
-    {
-      "description": "ESNext compiled for Node.js 4 || 6 || 8 || 10 || 12 || 14 || 16 || 18 || 20 || 21 with Require for modules",
-      "directory": "edition-node-6",
-      "entry": "index.js",
-      "tags": [
-        "compiled",
-        "javascript",
-        "es2015",
-        "require"
-      ],
-      "engines": {
-        "node": "4 || 6 || 8 || 10 || 12 || 14 || 16 || 18 || 20 || 21",
-        "browsers": false
+        "node": "4 || 6 || 8 || 10 || 12 || 14 || 16 || 18 || 20 || 21"
       }
     }
   ],
   "type": "commonjs",
-  "main": "index.cjs",
+  "main": "source/index.js",
   "dependencies": {
-    "editions": "^6.20.0",
     "graceful-fs": "^4.2.11",
-    "version-compare": "^3.9.0"
+    "version-compare": "^3.10.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.23.4",
-    "@babel/core": "^7.23.6",
-    "@babel/plugin-proposal-object-rest-spread": "^7.20.7",
-    "@babel/preset-env": "^7.23.6",
-    "assert-helpers": "^11.11.0",
+    "assert-helpers": "^11.12.0",
     "eslint": "^8.56.0",
     "eslint-config-bevry": "^5.3.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-babel": "^5.3.1",
     "eslint-plugin-prettier": "^5.1.2",
     "jsdoc": "^4.0.2",
-    "kava": "^7.5.0",
+    "kava": "^7.6.0",
     "prettier": "^3.1.1",
-    "projectz": "^4.0.0",
-    "valid-directory": "^4.7.0"
+    "projectz": "^4.1.1",
+    "valid-directory": "^4.8.0"
   },
   "scripts": {
     "our:clean": "rm -rf ./docs ./edition* ./es2015 ./es5 ./out ./.next",
-    "our:compile": "npm run our:compile:edition-node-6",
-    "our:compile:edition-node-6": "env BABEL_ENV=edition-node-6 babel --out-dir ./edition-node-6 ./source && printf '%s' '{\"type\": \"commonjs\"}' > edition-node-6/package.json",
+    "our:compile": "printf '%s\n' 'no need for this project'",
     "our:deploy": "printf '%s\n' 'no need for this project'",
     "our:meta": "npm run our:meta:docs && npm run our:meta:projectz",
     "our:meta:docs": "npm run our:meta:docs:jsdoc",
     "our:meta:docs:jsdoc": "rm -rf ./docs && jsdoc --recurse --pedantic --access all --destination ./docs --package ./package.json --readme ./README.md ./source && mv ./docs/$npm_package_name/$npm_package_version/* ./docs/ && rm -rf ./docs/$npm_package_name/$npm_package_version",
-    "our:meta:projectz": "projectz",
+    "our:meta:projectz": "projectz --offline",
     "our:release": "npm run our:release:prepare && npm run our:release:check-changelog && npm run our:release:check-dirty && npm run our:release:tag && npm run our:release:push",
     "our:release:check-changelog": "cat ./HISTORY.md | grep \"v$npm_package_version\" || (printf '%s\n' \"add a changelog entry for v$npm_package_version\" && exit -1)",
     "our:release:check-dirty": "git diff --exit-code",
@@ -181,28 +170,7 @@
     "our:verify": "npm run our:verify:eslint && npm run our:verify:prettier",
     "our:verify:eslint": "eslint --fix --ignore-pattern '**/*.d.ts' --ignore-pattern '**/vendor/' --ignore-pattern '**/node_modules/' --ext .mjs,.js,.jsx,.ts,.tsx ./source",
     "our:verify:prettier": "prettier --write .",
-    "test": "node ./test.cjs"
-  },
-  "babel": {
-    "env": {
-      "edition-node-6": {
-        "sourceType": "script",
-        "presets": [
-          [
-            "@babel/preset-env",
-            {
-              "targets": {
-                "node": "6"
-              },
-              "modules": "commonjs"
-            }
-          ]
-        ],
-        "plugins": [
-          "@babel/proposal-object-rest-spread"
-        ]
-      }
-    }
+    "test": "node ./source/test.js"
   },
   "eslintConfig": {
     "extends": [
@@ -212,7 +180,7 @@
   "prettier": {
     "semi": false,
     "singleQuote": true,
-    "trailingComma": "es5",
+    "trailingComma": "all",
     "endOfLine": "lf"
   }
 }
