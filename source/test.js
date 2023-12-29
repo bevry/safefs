@@ -26,17 +26,17 @@ suite('safefs', function (suite, test) {
 		equal(
 			safefs.getParentPathSync(join('a', 'b', 'c.js')),
 			join('a', 'b'),
-			'should work with file',
+			'should work with file'
 		)
 		equal(
 			safefs.getParentPathSync(join('a', 'b', 'c')),
 			join('a', 'b'),
-			'should work with directory without trailing slash',
+			'should work with directory without trailing slash'
 		)
 		equal(
 			safefs.getParentPathSync(join('a', 'b', 'c')),
 			join('a', 'b'),
-			'should work with directory with trailing slash',
+			'should work with directory with trailing slash'
 		)
 	})
 
@@ -69,7 +69,7 @@ suite('safefs', function (suite, test) {
 		safefs.unlink(localDir, function (err) {
 			nullish(
 				err,
-				"there should be no error when trying to unlink a path that doesn't exit",
+				"there should be no error when trying to unlink a path that doesn't exit"
 			)
 		})
 	})
@@ -116,7 +116,7 @@ suite('safefs', function (suite, test) {
 			equal(
 				existed,
 				false,
-				'the directory should not have existed, so existed should be false',
+				'the directory should not have existed, so existed should be false'
 			)
 			safefs.exists(localSubDir, function (exists) {
 				equal(exists, true, 'the directory should now exist')

@@ -1,7 +1,7 @@
 {
   "title": "Safe FS",
   "name": "safefs",
-  "version": "8.8.0",
+  "version": "8.9.0",
   "license": "Artistic-2.0",
   "description": "Stop getting EMFILE errors! Open only as many files as the operating system supports.",
   "homepage": "https://github.com/bevry/safefs",
@@ -16,6 +16,7 @@
   "keywords": [
     "closeFile",
     "emfile",
+    "es2015",
     "esnext",
     "fs",
     "node",
@@ -117,7 +118,7 @@
   },
   "editions": [
     {
-      "description": "ESNext source code for Node.js 4 || 6 || 8 || 10 || 12 || 14 || 16 || 18 || 20 || 21 with Require for modules",
+      "description": "ESNext source code for Node.js 8 || 10 || 12 || 14 || 16 || 18 || 20 || 21 with Require for modules",
       "directory": "source",
       "entry": "index.js",
       "tags": [
@@ -127,17 +128,37 @@
         "require"
       ],
       "engines": {
-        "node": "4 || 6 || 8 || 10 || 12 || 14 || 16 || 18 || 20 || 21"
+        "node": "8 || 10 || 12 || 14 || 16 || 18 || 20 || 21"
+      }
+    },
+    {
+      "description": "ESNext compiled for Node.js 4 || 6 || 8 || 10 || 12 || 14 || 16 || 18 || 20 || 21 with Require for modules",
+      "directory": "edition-node-6",
+      "entry": "index.js",
+      "tags": [
+        "compiled",
+        "javascript",
+        "es2015",
+        "require"
+      ],
+      "engines": {
+        "node": "4 || 6 || 8 || 10 || 12 || 14 || 16 || 18 || 20 || 21",
+        "browsers": false
       }
     }
   ],
   "type": "commonjs",
-  "main": "source/index.js",
+  "main": "index.cjs",
   "dependencies": {
+    "editions": "^6.21.0",
     "graceful-fs": "^4.2.11",
     "version-compare": "^3.10.0"
   },
   "devDependencies": {
+    "@babel/cli": "^7.23.4",
+    "@babel/core": "^7.23.6",
+    "@babel/plugin-proposal-object-rest-spread": "^7.20.7",
+    "@babel/preset-env": "^7.23.6",
     "assert-helpers": "^11.12.0",
     "eslint": "^8.56.0",
     "eslint-config-bevry": "^5.3.0",
@@ -145,14 +166,15 @@
     "eslint-plugin-babel": "^5.3.1",
     "eslint-plugin-prettier": "^5.1.2",
     "jsdoc": "^4.0.2",
-    "kava": "^7.6.0",
+    "kava": "^7.7.0",
     "prettier": "^3.1.1",
     "projectz": "^4.1.1",
     "valid-directory": "^4.8.0"
   },
   "scripts": {
     "our:clean": "rm -rf ./docs ./edition* ./es2015 ./es5 ./out ./.next",
-    "our:compile": "printf '%s\n' 'no need for this project'",
+    "our:compile": "npm run our:compile:edition-node-6",
+    "our:compile:edition-node-6": "env BABEL_ENV=edition-node-6 babel --out-dir ./edition-node-6 ./source && printf '%s' '{\"type\": \"commonjs\"}' > edition-node-6/package.json",
     "our:deploy": "printf '%s\n' 'no need for this project'",
     "our:meta": "npm run our:meta:docs && npm run our:meta:projectz",
     "our:meta:docs": "npm run our:meta:docs:jsdoc",
@@ -170,7 +192,28 @@
     "our:verify": "npm run our:verify:eslint && npm run our:verify:prettier",
     "our:verify:eslint": "eslint --fix --ignore-pattern '**/*.d.ts' --ignore-pattern '**/vendor/' --ignore-pattern '**/node_modules/' --ext .mjs,.js,.jsx,.ts,.tsx ./source",
     "our:verify:prettier": "prettier --write .",
-    "test": "node ./source/test.js"
+    "test": "node ./test.cjs"
+  },
+  "babel": {
+    "env": {
+      "edition-node-6": {
+        "sourceType": "script",
+        "presets": [
+          [
+            "@babel/preset-env",
+            {
+              "targets": {
+                "node": "6"
+              },
+              "modules": "commonjs"
+            }
+          ]
+        ],
+        "plugins": [
+          "@babel/proposal-object-rest-spread"
+        ]
+      }
+    }
   },
   "eslintConfig": {
     "extends": [
@@ -180,7 +223,7 @@
   "prettier": {
     "semi": false,
     "singleQuote": true,
-    "trailingComma": "all",
+    "trailingComma": "es5",
     "endOfLine": "lf"
   }
 }
