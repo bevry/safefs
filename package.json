@@ -135,6 +135,8 @@
   "main": "source/index.js",
   "dependencies": {
     "graceful-fs": "^4.2.11",
+    "ncp": "^2.0.0",
+    "os": "^0.1.2",
     "version-compare": "^3.10.0"
   },
   "devDependencies": {
