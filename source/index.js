@@ -20,224 +20,326 @@ const versionCompare = require('version-compare').default
  * Utilities to safely interact with the filesystem.
  */
 const safefs = {
-	// =====================================
-	// Our own custom functions
+    // =====================================
+    // Our own custom functions
 
-	/**
-	 * Get the parent path
-	 * @param  {String} path
-	 * @return {String}
-	 */
-	getParentPathSync(path) {
-		return (
-			path
-				// remove trailing slashes
-				.replace(/[/\\]$/, '')
-				// remove last directory
-				.replace(/[/\\][^/\\]+$/, '')
-		)
-	},
+    /**
+     * Get the parent path
+     * @param  {String} path
+     * @return {String}
+     */
+    getParentPathSync(path) {
+        return (
+            path
+                // remove trailing slashes
+                .replace(/[/\\]$/, '')
+                // remove last directory
+                .replace(/[/\\][^/\\]+$/, '')
+        )
+    },
 
-	/**
-	 * @callback EnsurePathCallback
-	 * @param {Error|null} err
-	 * @param {Boolean} existed
-	 * @returns {void}
-	 */
-	/**
-	 * Ensure the path exists
-	 * @param {String} path
-	 * @param {Object} opts
-	 * @param {Number} opts.mode
-	 * @param {EnsurePathCallback} next
-	 * @returns {this}
-	 */
-	ensurePath(path, opts, next) {
-		// Prepare
-		if (next == null) {
-			next = opts
-			opts = null
-		}
-		opts = opts || {}
+    /**
+     * @callback EnsurePathCallback
+     * @param {Error|null} err
+     * @param {Boolean} existed
+     * @returns {void}
+     */
+    /**
+     * Ensure the path exists
+     * @param {String} path
+     * @param {Object} opts
+     * @param {Number} opts.mode
+     * @param {EnsurePathCallback} next
+     * @returns {this}
+     */
+    ensurePath(path, opts, next) {
+        // Prepare
+        if (next == null) {
+            next = opts
+            opts = null
+        }
+        opts = opts || {}
 
-		// Check
-		fsUtil.exists(path, function (exists) {
-			// Error
-			if (exists) return next(null, true)
+        // Check
+        fsUtil.exists(path, function (exists) {
+            // Error
+            if (exists) return next(null, true)
 
-			// Success
-			const parentPath = safefs.getParentPathSync(path)
-			safefs.ensurePath(parentPath, opts, function (err) {
-				// Error
-				if (err) return next(err, false)
+            // Success
+            const parentPath = safefs.getParentPathSync(path)
+            safefs.ensurePath(parentPath, opts, function (err) {
+                // Error
+                if (err) return next(err, false)
 
-				// Success
-				safefs.mkdir(path, opts.mode, function () {
-					// ignore mkdir error, as if it already exists, then we are winning
+                // Success
+                safefs.mkdir(path, opts.mode, function () {
+                    // ignore mkdir error, as if it already exists, then we are winning
 
-					fsUtil.exists(path, function (exists) {
-						// Error
-						if (!exists) {
-							const err = new Error(`Failed to create the directory: ${path}`)
-							return next(err, false)
-						}
+                    fsUtil.exists(path, function (exists) {
+                        // Error
+                        if (!exists) {
+                            const err = new Error(`Failed to create the directory: ${path}`)
+                            return next(err, false)
+                        }
 
-						// Success
-						next(null, false)
-					})
-				})
-			})
-		})
+                        // Success
+                        next(null, false)
+                    })
+                })
+            })
+        })
 
-		// Chain
-		return safefs
-	},
+        // Chain
+        return safefs
+    },
 
-	// =====================================
-	// Safe Wrappers for Standard Methods
+    // =====================================
+    // Safe Wrappers for Standard Methods
 
-	/**
-	 * @callback Errback
-	 * @param {Error|null} err
-	 * @returns {void}
-	 */
-	/**
-	 * Write the file, ensuring the path exists
-	 * @param {String} path
-	 * @param {String|Buffer} data
-	 * @param {WriteFileOptions} opts
-	 * @param {Errback} next
-	 * @returns {this}
-	 */
-	writeFile(path, data, opts, next) {
-		// Prepare
-		if (next == null) {
-			next = opts
-			opts = null
-		}
+    /**
+     * @callback Errback
+     * @param {Error|null} err
+     * @returns {void}
+     */
+    /**
+     * Write the file, ensuring the path exists
+     * @param {String} path
+     * @param {String|Buffer} data
+     * @param {WriteFileOptions} opts
+     * @param {Errback} next
+     * @returns {this}
+     */
+    writeFile(path, data, opts, next) {
+        // Prepare
+        if (next == null) {
+            next = opts
+            opts = null
+        }
 
-		// Ensure path
-		safefs.ensurePath(pathUtil.dirname(path), opts, function (err) {
-			// Error
-			if (err) return next(err)
+        // Ensure path
+        safefs.ensurePath(pathUtil.dirname(path), opts, function (err) {
+            // Error
+            if (err) return next(err)
 
-			// Write data
-			fsUtil.writeFile(path, data, opts, next)
-		})
+            // Write data
+            fsUtil.writeFile(path, data, opts, next)
+        })
 
-		// Chain
-		return safefs
-	},
+        // Chain
+        return safefs
+    },
 
-	/**
-	 * Append to the file, ensuring the path exists
-	 * @param {String} path
-	 * @param {String|Buffer} data
-	 * @param {WriteFileOptions} opts
-	 * @param {Errback} next
-	 * @returns {this}
-	 */
-	appendFile(path, data, opts, next) {
-		// Prepare
-		if (next == null) {
-			next = opts
-			opts = null
-		}
+    /**
+     * Append to the file, ensuring the path exists
+     * @param {String} path
+     * @param {String|Buffer} data
+     * @param {WriteFileOptions} opts
+     * @param {Errback} next
+     * @returns {this}
+     */
+    appendFile(path, data, opts, next) {
+        // Prepare
+        if (next == null) {
+            next = opts
+            opts = null
+        }
 
-		// Ensure path
-		safefs.ensurePath(pathUtil.dirname(path), opts, function (err) {
-			// Error
-			if (err) return next(err)
+        // Ensure path
+        safefs.ensurePath(pathUtil.dirname(path), opts, function (err) {
+            // Error
+            if (err) return next(err)
 
-			// Write data
-			fsUtil.appendFile(path, data, opts, next)
-		})
+            // Write data
+            fsUtil.appendFile(path, data, opts, next)
+        })
 
-		// Chain
-		return safefs
-	},
+        // Chain
+        return safefs
+    },
 
-	/**
-	 * Make the directory
-	 * @param {String} path
-	 * @param {Number} mode
-	 * @param {Errback} next
-	 * @returns {this}
-	 */
-	mkdir(path, mode, next) {
-		// Prepare
-		if (next == null) {
-			next = mode
-			mode = null
-		}
-		if (mode == null) {
-			/* eslint no-bitwise:0, no-magic-numbers:0 */
-			mode = 0o777 & ~umask()
-		}
+    /**
+     * Make the directory
+     * @param {String} path
+     * @param {Number} mode
+     * @param {Errback} next
+     * @returns {this}
+     */
+    mkdir(path, mode, next) {
+        // Prepare
+        if (next == null) {
+            next = mode
+            mode = null
+        }
+        if (mode == null) {
+            /* eslint no-bitwise:0, no-magic-numbers:0 */
+            mode = 0o777 & ~umask()
+        }
 
-		// Action
-		fsUtil.mkdir(path, mode, next)
+        // Action
+        fsUtil.mkdir(path, mode, next)
 
-		// Chain
-		return safefs
-	},
+        // Chain
+        return safefs
+    },
 
-	/**
-	 * Remove the file, don't error if the path is already removed.
-	 * @param {String} path
-	 * @param {Errback} next
-	 * @returns {this}
-	 */
-	unlink(path, next) {
-		// Stat
-		fsUtil.exists(path, function (exists) {
-			if (exists === false) return next()
-			fsUtil.unlink(path, next)
-		})
+    /**
+     * Remove the file, don't error if the path is already removed.
+     * @param {String} path
+     * @param {Errback} next
+     * @returns {this}
+     */
+    unlink(path, next) {
+        // Stat
+        fsUtil.exists(path, function (exists) {
+            if (exists === false) return next()
+            fsUtil.unlink(path, next)
+        })
 
-		// Chain
-		return safefs
-	},
+        // Chain
+        return safefs
+    },
 
-	/**
-	 * Remove the directory, don't error if the path is already removed.
-	 * @param {String} path
-	 * @param {Errback} next
-	 * @returns {this}
-	 */
-	rimraf(path, next) {
-		function wrappedNext(err) {
-			if (err && err.code === 'ENOENT') return next()
-			next(err)
-		}
+    /**
+     * Remove the directory, don't error if the path is already removed.
+     * @param {String} path
+     * @param {Errback} next
+     * @returns {this}
+     */
+    rimraf(path, next) {
+        function wrappedNext(err) {
+            if (err && err.code === 'ENOENT') return next()
+            next(err)
+        }
 
-		// https://nodejs.org/api/fs.html#fsrmdirpath-options-callback
-		if (versionCompare(nodeVersion, '14') >= 0) {
-			fsUtil.rm(
-				path,
-				{ recursive: true, force: true, maxRetries: 2 },
-				wrappedNext,
-			)
-		} else if (
-			versionCompare(nodeVersion, '12') >= 0 &&
-			versionCompare(nodeVersion, '16') < 0
-		) {
-			fsUtil.rmdir(path, { recursive: true, maxRetries: 2 }, wrappedNext)
-		} else {
-			exec(`rm -rf ${JSON.stringify(path)}`, { cwd: cwd() }, wrappedNext)
-		}
-	},
+        // https://nodejs.org/api/fs.html#fsrmdirpath-options-callback
+        if (versionCompare(nodeVersion, '14') >= 0) {
+            fsUtil.rm(
+                path,
+                { recursive: true, force: true, maxRetries: 2 },
+                wrappedNext,
+            )
+        } else if (
+            versionCompare(nodeVersion, '12') >= 0 &&
+            versionCompare(nodeVersion, '16') < 0
+        ) {
+            fsUtil.rmdir(path, { recursive: true, maxRetries: 2 }, wrappedNext)
+        } else {
+            exec(`rm -rf ${JSON.stringify(path)}`, { cwd: cwd() }, wrappedNext)
+        }
+    },
+
+    // New functions added below
+
+    /**
+     * Read the contents of a directory
+     * @param {String} path
+     * @param {Object} opts
+     * @param {Function} next
+     * @returns {this}
+     */
+    readdir(path, opts, next) {
+        if (typeof opts === 'function') {
+            next = opts
+            opts = {}
+        }
+        fsUtil.readdir(path, opts, next)
+        return safefs
+    },
+
+    /**
+     * Check if a path exists and is a directory
+     * @param {String} path
+     * @param {Function} next
+     * @returns {this}
+     */
+    isDirectory(path, next) {
+        fsUtil.stat(path, (err, stats) => {
+            if (err) return next(err)
+            next(null, stats.isDirectory())
+        })
+        return safefs
+    },
+
+    /**
+     * Copy a file or directory recursively
+     * @param {String} src
+     * @param {String} dest
+     * @param {Object} opts
+     * @param {Function} next
+     * @returns {this}
+     */
+    copy(src, dest, opts, next) {
+        if (typeof opts === 'function') {
+            next = opts
+            opts = {}
+        }
+
+        safefs.isDirectory(src, (err, isDir) => {
+            if (err) return next(err)
+
+            if (isDir) {
+                safefs.ensurePath(dest, opts, (err) => {
+                    if (err) return next(err)
+                    fsUtil.readdir(src, (err, files) => {
+                        if (err) return next(err)
+                        let pending = files.length
+                        if (pending === 0) return next()
+                        files.forEach((file) => {
+                            safefs.copy(
+                                pathUtil.join(src, file),
+                                pathUtil.join(dest, file),
+                                opts,
+                                (err) => {
+                                    if (err) return next(err)
+                                    if (--pending === 0) next()
+                                }
+                            )
+                        })
+                    })
+                })
+            } else {
+                safefs.ensurePath(pathUtil.dirname(dest), opts, (err) => {
+                    if (err) return next(err)
+                    fsUtil.copyFile(src, dest, next)
+                })
+            }
+        })
+
+        return safefs
+    },
+
+    /**
+     * Move a file or directory
+     * @param {String} src
+     * @param {String} dest
+     * @param {Object} opts
+     * @param {Function} next
+     * @returns {this}
+     */
+    move(src, dest, opts, next) {
+        if (typeof opts === 'function') {
+            next = opts
+            opts = {}
+        }
+
+        safefs.copy(src, dest, opts, (err) => {
+            if (err) return next(err)
+            safefs.rimraf(src, next)
+        })
+
+        return safefs
+    }
 }
 
 // Add any missing methods
 Object.keys(fsUtil).forEach(function (key) {
-	const value = fsUtil[key]
-	// we do the `!safefs[key]` as we don't want to over-write our own enhancements
-	// we do the `value.bind` check, as we may interate across trivial types
-	// we do the `Function.prototype.bind` check, as underscore is a function that has it's own bind
-	if (!safefs[key] && value && value.bind === Function.prototype.bind) {
-		safefs[key] = value.bind(fsUtil)
-	}
+    const value = fsUtil[key]
+    // we do the `!safefs[key]` as we don't want to over-write our own enhancements
+    // we do the `value.bind` check, as we may interate across trivial types
+    // we do the `Function.prototype.bind` check, as underscore is a function that has it's own bind
+    if (!safefs[key] && value && value.bind === Function.prototype.bind) {
+        safefs[key] = value.bind(fsUtil)
+    }
 })
 
 // Export
